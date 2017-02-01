@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <title>Widget-heading</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="css/style.css" rel="stylesheet"/>
+    <link href="../css/style.css" rel="stylesheet"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>NewWebsite</title>
 </head>
 <body>
 
@@ -13,32 +13,32 @@
     <div class="row container-fluid">
         <div class="col-sm-4 hidden-xs">
             <div class="navbar-text pull-left wbdv-no-left-margin">
-                <a href="website-list.html">
+                <a href="widget-list.html">
                     <span class="glyphicon glyphicon-chevron-left"></span>
                 </a>
             </div>
             <div class="navbar-header navbar-brand">
-                <a  href="#">Websites</a>
+                <a href="#">Choose Widget</a>
             </div>
             <div class="navbar-text pull-right wbdv-no-right-margin">
-                <a href="#">
+                <a href="widget-chooser.html">
                     <span class="glyphicon glyphicon-plus"></span>
                 </a>
             </div>
         </div>
         <div class="col-sm-8">
             <div class="navbar-text pull-left wbdv-no-left-margin visible-xs">
-                <a href="website-list.html">
+                <a href="widget-list.html">
                     <span class="glyphicon glyphicon-chevron-left"></span>
                 </a>
             </div>
             <div class="navbar-text pull-right wbdv-no-right-margin">
-                <a href="website-list.html">
+                <a href="widget-list.html">
                     <span class="glyphicon glyphicon-ok"></span>
                 </a>
             </div>
             <div class="navbar-header navbar-brand">
-                <a href="#">New Website</a>
+                <a href="#">Widget Edit</a>
             </div>
         </div>
     </div>
@@ -48,49 +48,73 @@
     <div class="col-sm-4 hidden-xs pull-left">
         <ul class="list-group">
             <li class="list-group-item">
-                <a href="page-list.html">
-                    Address Book App
-                </a>
-                <a href="website-edit.html" class="pull-right">
-                    <span class="glyphicon glyphicon-cog"></span>
+                <a href="#">
+                    Header
                 </a>
             </li>
             <li class="list-group-item">
-                <a href="page-list.html">
-                    Blogger
-                </a>
-                <a href="website-edit.html" class="pull-right">
-                    <span class="glyphicon glyphicon-cog"></span>
+                <a href="#">
+                    Label
                 </a>
             </li>
             <li class="list-group-item">
-                <a href="page-list.html">
-                    Blogging App
-                </a>
-                <a href="website-edit.html" class="pull-right">
-                    <span class="glyphicon glyphicon-cog"></span>
+                <a href="#">
+                    HTML
                 </a>
             </li>
             <li class="list-group-item">
-                <a href="page-list.html">
-                    Script Testing App
-                </a>
-                <a href="website-edit.html" class="pull-right">
-                    <span class="glyphicon glyphicon-cog"></span>
+                <a href="#">
+                    Text Input
                 </a>
             </li>
-
+            <li class="list-group-item">
+                <a href="#">
+                    Link
+                </a>
+            </li>
+            <li class="list-group-item">
+                <a href="#">
+                    Button
+                </a>
+            </li>
+            <li class="list-group-item">
+                <a href="widget-image.html">
+                    Image
+                </a>
+            </li>
+            <li class="list-group-item">
+                <a href="widget-youtube.html">
+                    YouTube
+                </a>
+            </li>
+            <li class="list-group-item">
+                <a href="#">
+                    Data Table
+                </a>
+            </li>
+            <li class="list-group-item">
+                <a href="#">
+                    Repeater
+                </a>
+            </li>
         </ul>
     </div>
     <div class="col-xs-12 col-sm-8 wbdv-right-pane border-l">
-        <form>
+        <form >
             <div class="form-group">
-                <label for="exampleInputName">Email address</label>
-                <input type="name" class="form-control" id="exampleInputName" placeholder="Name">
+                <label for="pagename">Name</label>
+                <input type="text" class="form-control" id="pagename" placeholder="Page Name">
             </div>
             <div class="form-group">
-                <label for="exampleInputDescription">Description</label>
-                <textarea class="form-control" id="exampleInputDescription" placeholder="Description" rows="5"></textarea>
+                <label for="description">Text</label>
+                <input type="text" class="form-control" id="description" placeholder="Text" value="The undersea drones revealing the ocean's secrets">
+            </div>
+            <div class="form-group">
+                <label for="size">Size</label>
+                <input type="text" class="form-control" id="size" placeholder="Size" value="3">
+            </div>
+            <div class="form-group">
+                <a class="btn btn-danger btn-block" href="widget-list.html">Delete</a>
             </div>
         </form>
     </div>
@@ -100,13 +124,12 @@
     <div class="container-fluid">
         <div class="row navbar-text pull-right ">
             <div class="col-xs-4 text-center">
-                <a href="profile.html">
+                <a href="../user/profile.html">
                     <span class="glyphicon glyphicon-user"></span>
                 </a>
             </div>
         </div>
     </div>
 </nav>
-
 </body>
 </html>

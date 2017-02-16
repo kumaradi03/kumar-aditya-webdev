@@ -1,0 +1,52 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="row container-fluid">
+        <div class="col-xs-12">
+        <div class="navbar-text pull-right wbdv-no-right-margin">
+            <a href="#/user/{{model.userId}}/website/new">
+                <span class="glyphicon glyphicon-plus"></span>
+            </a>
+        </div>
+            <div class="navbar-text pull-left wbdv-no-left-margin">
+                <a href="#/profile/{{model.userId}}">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+            </div>
+            <div class="navbar-header navbar-brand">
+                <a href="#/user/{{model.userId}}/website/{{website._id}}">Websites</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+
+
+<div class="row container-fluid">
+    <div class="col-xs-12 ">
+        <div class="alert alert-danger" ng-show="model.error">
+            {{model.error}}
+        </div>
+        <ul class="list-group">
+            <li ng-repeat = "website in model.websites"
+                class="list-group-item">
+                <a href="#/user/{{model.userId}}/website/{{website._id}}/page">
+                    {{website.name}}
+                </a>
+                <a href="#/user/{{model.userId}}/website/{{website._id}}" class="pull-right wbdv-margin-left-15">
+                    <span class="glyphicon glyphicon-cog"></span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid">
+        <div class="row navbar-text pull-right ">
+            <div class="col-xs-4 text-center">
+                <a href="#/profile/{{model.userId}}">
+                    <span class="glyphicon glyphicon-user"></span>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+

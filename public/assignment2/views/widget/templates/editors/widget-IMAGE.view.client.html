@@ -1,0 +1,129 @@
+<script src="../../controllers/widget-list.controller.client.js"></script>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="row container-fluid">
+        <div class="col-sm-4 hidden-xs">
+            <div class="navbar-text pull-left wbdv-no-left-margin">
+                <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+            </div>
+            <div class="navbar-header navbar-brand">
+                <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/{{model.widgetId}}">
+                    Choose Widget
+                </a>
+            </div>
+            <div class="navbar-text pull-right wbdv-no-right-margin">
+                <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/new">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </a>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="navbar-text pull-left wbdv-no-left-margin visible-xs">
+                <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+            </div>
+            <div class="navbar-text pull-right wbdv-no-right-margin">
+                <a ng-click="model.chooseUpdateDelete(model.widget)"
+                   href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget">
+                    <span class="glyphicon glyphicon-ok"></span>
+                </a>
+            </div>
+            <div class="navbar-header navbar-brand">
+                <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/{{model.widgetId}}">
+                    Widget Edit
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="row container-fluid">
+    <div class="col-sm-4 hidden-xs pull-left">
+        <ul class="list-group">
+            <li class="list-group-item">
+                <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/-1">
+                    Header
+                </a>
+            </li>
+            <li class="list-group-item">
+                <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/-3">
+                    HTML
+                </a>
+            </li>
+            <li class="list-group-item">
+                <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/-2">
+                    Image
+                </a>
+            </li>
+            <li class="list-group-item">
+                <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/-4">
+                    YouTube
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="col-xs-12 col-sm-8 wbdv-right-pane border-l">
+        <form >
+            <div class="form-group">
+                <label for="pagename">Name</label>
+                <input ng-model="model.widget.pagename"
+                       type="text"
+                       class="form-control"
+                       id="pagename"
+                       placeholder="Page Name">
+            </div>
+            <div class="form-group">
+                <label for="description">Text</label>
+                <input ng-model="model.widget.text"
+                       type="text"
+                       class="form-control"
+                       id="description"
+                       placeholder="Text">
+            </div>
+            <div class="form-group">
+                <label for="url">URL</label>
+                <input ng-model="model.widget.url"
+                       type="text"
+                       class="form-control"
+                       id="url"
+                       placeholder="URL">
+            </div>
+            <div class="form-group">
+                <label for="width">Width</label>
+                <input ng-model="model.widget.width"
+                       type="text"
+                       class="form-control"
+                       id="width"
+                       placeholder="Width"
+                       value="100%">
+            </div>
+            <div class="form-group">
+                <label for="upload">Upload</label>
+                <input type="file" class="form-control" id="upload">
+            </div>
+            <div class="form-group">
+                <a class="btn btn-primary btn-block" href="#">Upload Image</a>
+            </div>
+            <div class="form-group">
+                <div ng-switch = "model.widget._id">
+                    <a ng-switch-when= "-2" ></a>
+                    <a ng-switch-default ng-click ="model.deleteWidget()" class="btn btn-danger btn-block">Delete</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid">
+        <div class="row navbar-text pull-right ">
+            <div class="col-xs-4 text-center">
+                <a href="#/profile/{{model.userId}}">
+                    <span class="glyphicon glyphicon-user"></span>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>

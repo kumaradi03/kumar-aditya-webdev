@@ -13,7 +13,8 @@ module.exports = function (model) {
         deleteWidget: deleteWidget,
         findWidgetById: findWidgetById,
         findAllWidgetsForPage: findAllWidgetsForPage,
-        updateWidget: updateWidget
+        updateWidget: updateWidget,
+        reorderWidget: reorderWidget
     };
     return api;
 
@@ -63,11 +64,23 @@ module.exports = function (model) {
         var deferred = q.defer();
         newWidget._page = pageId;
         widgetModel
-            .create(newWidget, function (err, widget) {
-                if (err)
+            .find({_page:pageId})
+            .then(function (Widget,err) {
+                if(err)
                     deferred.abort(err);
-                else
-                    deferred.resolve(widget);
+                else{
+                    var index = Widget.length;
+                    newWidget.index = index;
+                    widgetModel.create(newWidget, function (err, docs) {
+                        if (err){
+                            deferred.abort(err);
+                        }
+                        else{
+                            deferred.resolve(docs);
+                        }
+
+                    });
+                }
             });
         return deferred.promise;
     }
@@ -86,4 +99,33 @@ module.exports = function (model) {
         return deferred.promise;
     }
 
+    function reorderWidget(start, end, pageId){
+        var deferred = q.defer();
+        widgetModel
+            .find({_page: pageId})
+            .then(function (widgets, err) {
+                if(err)
+                    deferred.abort(err);
+                else{
+                    widgets.forEach(function (widget) {
+                        start = parseInt(start);
+                        end = parseInt(end);
+                        if(start < end){
+                            if(widget.index === start)
+                                widget.index = end;
+                            else if(widget.index > start && widget.index <= end)
+                                widget.index--;
+                        } else{
+                            if(widget.index === start)
+                                widget.index = end;
+                            else if(widget.index < start && widget.index >= end)
+                                widget.index++;
+                        }
+                        widget.save();
+                    });
+                    deferred.resolve(widgets);
+                }
+            });
+        return deferred.promise;
+    }
 }

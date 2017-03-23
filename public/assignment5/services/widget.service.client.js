@@ -29,7 +29,8 @@
             "findWidgetById": findWidgetById,
             "updateWidget": updateWidget,
             "deleteWidget": deleteWidget,
-            "createWidget": createWidget
+            "createWidget": createWidget,
+            "sortWidget": sortWidget
 
         };
         return api;
@@ -68,6 +69,10 @@
                 .then(function(res){
                     return res.data;
                 });
+        }
+
+        function sortWidget(start,end,pageId){
+            return $http.put("/page/"+pageId+"/widget?start="+start+"&end="+end);
         }
     }
 })();

@@ -14,7 +14,8 @@ module.exports = function (model) {
         findPageById: findPageById,
         findAllPagesForWebsite: findAllPagesForWebsite,
         updatePage: updatePage,
-        addPage: addPage
+        addPage: addPage,
+        //reorderWidget:reorderWidget
     };
     return api;
 
@@ -104,4 +105,11 @@ module.exports = function (model) {
             });
         return deferred.promise;
     }
+
+    // function reorderWidget(start,end,PageId)
+    // {
+    //     var deferred = q.defer();
+    //     pageModel
+    //         .
+    // }
 };

@@ -17,9 +17,16 @@
         WidgetService
             .findAllWidgets(vm.pageId)
             .then(function(widgets){
-                vm.widgets = widgets;
+                vm.widgets = widgets.sort(compareWidgets);
         });
 
+        function compareWidgets(w1,w2) {
+            if (w1.index < w2.index)
+                return -1;
+            if (w1.index > w2.index)
+                return 1;
+            return 0;
+        }
         function getWidgetTemplateUrl(widgetType) {
             var url = 'views/widget/templates/widget-'+widgetType+'.view.client.html';
             return url;

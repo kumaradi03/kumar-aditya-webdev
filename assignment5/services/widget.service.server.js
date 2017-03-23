@@ -7,6 +7,7 @@ module.exports = function (app,model) {
     app.put("/api1/widget/:widgetId",updateWidget);
     app.get("/api1/widget/:widgetId",findWidgetById);
     app.delete("/api1/widget/:widgetId",deleteWidget);
+    app.put("/page/:pageId/widget",reorderWidget);
 
     var widgetModel = model.widgetModel;
     var pageModel = model.pageModel;
@@ -92,7 +93,7 @@ module.exports = function (app,model) {
             .createWidget(pageId, Widget)
             .then(function (widget) {
                 pageModel.addPage(pageId, widget._id)
-                    .then(function (widget) {
+                    .then(function (status) {
                         res.send(widget);
                     }, function (err) {
                         res.sendStatus(500).send(err);
@@ -108,6 +109,19 @@ module.exports = function (app,model) {
         var widgetType = widget1.widgetType;
         widgetModel
             .updateWidget(widgetId,widget1)
+            .then(function (widget) {
+                res.send(widget);
+            }, function (err) {
+                res.sendStatus(500).send(err);
+            });
+    }
+
+    function reorderWidget(req,res){
+        var start = req.query.start;
+        var end = req.query.end;
+        var pageId = req.params.pageId;
+        widgetModel
+            .reorderWidget(start, end, pageId)
             .then(function (widget) {
                 res.send(widget);
             }, function (err) {

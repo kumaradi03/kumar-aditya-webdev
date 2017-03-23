@@ -19,6 +19,7 @@ module.exports = function () {
         class: String,
         icon: String,
         deletable: Boolean,
+        index: Number,
         formatted: Boolean,
         dateCreated: {type: Date, default:Date.now()}
     }, {collection: 'assignment5.widget'});

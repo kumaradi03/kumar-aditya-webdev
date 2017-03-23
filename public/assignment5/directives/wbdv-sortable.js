@@ -6,12 +6,35 @@
         .module('wbdvDirectives',[])
         .directive('wbdvSortable', sortableDir);
 
-    function sortableDir() {
+    function sortableDir($routeParams) {
         function linkFunc(scope, element, attributes) {
-            element.sortable({axis: 'y'});
+            var pageId = $routeParams.pid;
+            var start = -1;
+            var end = -1;
+            element.sortable(
+                {axis: 'y'},
+                {start: function (event, ui) {
+                    start = (ui.item).index();
+                }, stop: function(event, ui){
+                    end = (ui.item).index();
+                    scope.sortableController.sort(start, end, pageId);
+                }});
         }
         return {
-            link: linkFunc
+            scope:{},
+            link: linkFunc,
+            controller: sortableController,
+            controllerAs: 'sortableController'
         };
     }
+
+    function sortableController(WidgetService,$routeParams) {
+        var vm = this;
+        vm.sort = sort;
+        function sort(start, end, pageId) {
+            WidgetService
+                .sortWidget(start, end, pageId);
+        }
+    }
+
 })();

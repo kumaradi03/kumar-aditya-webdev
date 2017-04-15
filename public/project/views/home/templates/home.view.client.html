@@ -1,0 +1,73 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="row container-fluid">
+            <div class="navbar-text pull-right wbdv-no-right-margin">
+                <div ng-show = "model.userId == undefined">
+                    <a href="#/login">
+                        <span class="glyphicon glyphicon-log-in"></span>
+                    </a>
+                </div>
+                <div ng-show = "model.userId == '{{model.userId}}'">
+                    <a href="#/profile">{{model.user.firstName}}&nbsp;&nbsp;</a>
+                    <a ng-click="model.logout()">
+                        <span class="glyphicon glyphicon-log-out"></span>
+                    </a>
+                </div>
+            </div>
+            <div class="navbar-header navbar-brand pull-left">
+                <a href="#/">Movies&More</a>
+            </div>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-1 hidden-sm hidden-xs">
+        </div>
+        <div class="col-md-10">
+            <div id="dynamiccontentcarousel" class="carousel slide" data-ride="carousel" data-interval="1500">
+                <ol class="carousel-indicators">
+                    <li data-target="#dynamiccontentcarousel" data-ng-repeat="img in model.images" data-ng-class="{active:$first}" data-slide-to="{{$index}}"></li>
+                </ol>
+                <div>
+                    <form id="search-bar" class="input-group" ng-submit="model.searchMovie(search)">
+                        <input ng-model="search" type="text" class="form-control search" placeholder="Search for movies...">
+                        <span ng-click="model.searchMovie(search)" class="input-group-addon glyphicon glyphicon-search"></span>
+                    </form>
+                </div>
+                <div class="carousel-inner" role="listbox">
+                    <div class="item" data-ng-repeat="image in model.images" data-ng-class="{active:$first}">
+                        <img data-ng-src="{{image}}" alt="carousel {{$index}}"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1 hidden-sm hidden-xs">
+        </div>
+    </div>
+    <div class ="row">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3 col-sm-4 col-xs-6 placeholder" data-ng-repeat="image in model.popularImages">
+                    <div ng-switch = "model.userId">
+                        <a ng-switch-when= undefined href="#/movie/{{image.id}}">
+                            <div class="thumbnail">
+                                <div class="caption">
+                                    <h4>{{image.original_title}}</h4>
+                                </div>
+                                <img class="img-responsive" data-ng-src="{{image.backdrop_path}}" alt="Image not found"/>
+                            </div>
+                        </a>
+                        <a ng-switch-default href="#/movie/{{image.id}}">
+                            <div class="thumbnail">
+                                <div class="caption">
+                                    <h4>{{image.original_title}}</h4>
+                                </div>
+                                <img class="img-responsive" data-ng-src="{{image.backdrop_path}}" alt="Image not found"/>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

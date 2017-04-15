@@ -1,0 +1,35 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="row container-fluid">
+        <div class="navbar-text pull-right wbdv-no-right-margin">
+            <div ng-show = "model.userId == undefined">
+                <a href="#/login">
+                    <span class="glyphicon glyphicon-log-in"></span>
+                </a>
+            </div>
+            <div ng-show = "model.userId == '{{model.userId}}'">
+                <a href="#/profile">{{model.user.firstName}}&nbsp;&nbsp;</a>
+                <a ng-click="model.logout()">
+                    <span class="glyphicon glyphicon-log-out"></span>
+                </a>
+            </div>
+        </div>
+        <div class="navbar-header navbar-brand pull-left">
+            <a href="#/">Movies&More</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3 col-sm-4 col-xs-6 " data-ng-repeat="movie in model.searchMovie">
+            <a href="#/movie/{{movie.id}}">
+                <div class="thumbnail">
+                    <div class="caption">
+                        <h4>{{movie.original_title}}</h4>
+                    </div>
+                    <img class="img-responsive" data-ng-src="{{movie.backdrop_path}}" alt="Image not found"/>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>

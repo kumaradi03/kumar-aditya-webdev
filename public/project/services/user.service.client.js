@@ -1,0 +1,103 @@
+/**
+ * Created by aditya on 4/1/17.
+ */
+(function(){
+    angular
+        .module("Movies&More")
+        .factory('UserService', userService);
+
+    function userService($http) {
+
+        var api = {
+            "findUserByUsername": findUserByUsername,
+            "createUser": createUser,
+            "updateUser": updateUser,
+            "findUserByCredentials": findUserByCredentials,
+            "findUserById": findUserById,
+            "deleteUser": deleteUser,
+            "login": login,
+            "logout": logout,
+            "loggedIn": loggedIn,
+            "register": register,
+            "findAllUsers": findAllUsers
+        };
+        return api;
+
+
+        function loggedIn() {
+            return $http.get("/api2/loggedIn")
+                .then(function(res){
+                    return res.data;
+                });
+        }
+
+        function createUser(user) {
+            return $http.post("/api2/user",user)
+                .then(function(res){
+                    return res.data;
+                });
+        }
+
+        function register(user) {
+            return $http.post("/api2/register",user)
+                .then(function(res){
+                    return res.data;
+                });
+        }
+
+        function login(user) {
+            return $http.post("/api2/login",user)
+                .then(function(res){
+                    console.log(res);
+                    return res.data;
+                });
+        }
+
+        function logout() {
+            return $http.post("/api2/logout")
+                .then(function(res){
+                    console.log(res);
+                    return res.data;
+                });
+        }
+
+        function updateUser(userId, newUser) {
+            return $http.put("/api2/user/"+userId, newUser)
+                .then(function(res){
+                    return res.data;
+                });
+        }
+
+        function findUserById(uid) {
+            return $http.get("/api2/user/"+uid)
+                .then(function(res){
+                    return res.data;
+                });
+        }
+
+        function findAllUsers() {
+            return $http.get("/api2/users/")
+                .then(function(res){
+                    return res.data;
+                });
+        }
+
+        function findUserByUsername(username) {
+            return $http.get("/api2/user?username="+username)
+                .then(function(res){
+                    return res.data;
+                });
+        }
+
+        function findUserByCredentials(username, password) {
+            return $http.get("/api2/user?username="+username+"&password="+password)
+                .then(function(res){
+                    return res.data;
+                });
+        }
+
+        function deleteUser(userId) {
+            return $http.delete("/api2/user/"+userId);
+        }
+    }
+})();

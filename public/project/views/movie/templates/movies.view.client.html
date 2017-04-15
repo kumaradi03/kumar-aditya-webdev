@@ -1,0 +1,105 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="row container-fluid">
+        <div class="navbar-text pull-right wbdv-no-right-margin">
+            <div ng-show = "model.userId == undefined">
+                <a href="#/login">
+                    <span class="glyphicon glyphicon-log-in"></span>
+                </a>
+            </div>
+            <div ng-show = "model.userId == '{{model.userId}}'">
+                <a href="#/profile">{{model.user.firstName}}&nbsp;&nbsp;</a>
+                <a ng-click="model.logout()">
+                    <span class="glyphicon glyphicon-log-out"></span>
+                </a>
+            </div>
+        </div>
+        <div class="navbar-header navbar-brand pull-left">
+            <a href="#/">Movies&More</a>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-8">
+            <div class ="row">
+                <div class="col-sm-3">
+                    <img class="img-responsive movie-img" data-ng-src= {{model.movie.poster_path}} alt="Image not found"/>
+                </div>
+                <div class="col-sm-9 ">
+                    <h2 class="panel panel-default"><strong>{{model.movie.original_title}}</strong></h2>
+                    <div class="col-sm-4 ">
+                        <h6></h6>
+                        <h3 data-ng-repeat="genre in model.movie.genres">
+                            <span class="label label-default">
+                                {{genre.name}}
+                            </span>
+                        </h3>
+                        <h1></h1>
+                        <h4 class="time">
+                            <span class="glyphicon glyphicon-time glyphicon-time-css"></span>
+                            {{ model.movie.runtime}} mins
+                        </h4>
+                        <div ng-show = "model.user.type === undefined"></div>
+                        <div ng-show = "model.user.type === 'Buyer'">
+                            <a ng-show = "model.like === true">
+                                <span ng-click="model.removeLike()" class="glyphicon glyphicon-thumbs-down thumbs-down"></span>
+                            </a>
+                            <a ng-show = "model.like === false">
+                                <span ng-click="model.incrementLike()"class="glyphicon glyphicon-thumbs-up thumbs-up"></span>
+                            </a>
+                            <a ng-show = "model.wishlist === false">
+                                <i class="fa fa-star-o font-gap fa-3x" ng-click="model.addToWishlist()"></i>
+                            </a>
+                            <a ng-show = "model.wishlist === true">
+                                <i class="fa fa-star-o font-gap fa-3x icon-c" ng-click="model.removeFromWishList()"></i>
+                            </a>
+                            <div>
+                                <button ng-click="model.goToBuyMoviePage()" type="button" class="btn btn-info">Buy</button>
+                            </div>
+                        </div>
+                        <div ng-show= "model.user.type == 'Seller'">
+                            <div>
+                                <input ng-model = "quantity"
+                                       type="number"
+                                       class="form-control"
+                                       placeholder="Quantity "/>
+                            </div>
+                            <br/>
+                            <div>
+                                <button ng-click="model.sellMovie(quantity)" type="button" class="btn btn-info btn-group-justified">Sell</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-8 ">
+                        <h4 class="plot">
+                            Plot
+                        </h4>
+                        <h4 class="plotdetails">
+                            {{ model.movie.overview}}
+                        </h4>
+                        <h3>
+                            <span class="label label-default">
+                                Release Date:{{ model.movie.release_date}}
+                            </span>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <div class ="row container-fluid panel panel-default">
+                <h2 class ="plot">
+                    Casts
+                </h2>
+                <div class="col-md-2 col-sm-4 col-xs-6 placeholder" data-ng-repeat="cast in model.casts">
+                    <img class="img-responsive img-cast" data-ng-src="{{cast.profile_path}}" alt="Image not found"/>
+                    <h6>{{cast.name}}</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4 panel panel-default">
+            <div class= "youtube-widget" data-ng-repeat="video in model.videos">
+                <iframe class ="youtube-widget-iframe" src="{{video.url}}" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+

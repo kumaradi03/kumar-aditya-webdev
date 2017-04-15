@@ -1,0 +1,48 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="row container-fluid">
+        <div class="navbar-text pull-right wbdv-no-right-margin">
+            <a href="#/profile">{{model.user.firstName}}&nbsp;&nbsp;</a>
+            <a ng-click="model.logout()">
+                <span class="glyphicon glyphicon-log-out"></span>
+            </a>
+        </div>
+        <div class="navbar-header navbar-brand pull-left">
+            <span ng-click="model.openNav()">
+                <a class="glyphicon glyphicon-align-justify"></a>
+            </span>
+            <a ng-click="model.goToHome()">Movies&More</a>
+        </div>
+    </div>
+</nav>
+
+<div id="mySidenav" class="sidenav">
+    <span ng-click="model.closeNav()">
+        <a class="glyphicon glyphicon-remove pull-right"></a>
+    </span>
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="#/profile/movieSold">Edit Profile</a>
+    <a href="#/profile/inventory">Show Users</a>
+</div>
+
+<div id="main" class="container-fluid">
+    <table class="table table-inverse">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Movie Purchased</th>
+            <th>Buyer</th>
+            <th>Seller</th>
+            <th>Purchase Date</th>
+        </tr>
+        </thead>
+        <tbody data-ng-repeat="transaction in model.transactions track by $index">
+        <tr>
+            <th scope="row">{{$index+1}}</th>
+            <td>{{model.movies[$index].data.original_title}}</td>
+            <td>{{model.buyer[$index].firstName+" "+model.buyer[$index].lastName}}</td>
+            <td>{{model.seller[$index].firstName+" "+model.seller[$index].lastName}}</td>
+            <td>{{transaction.dateCreated}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

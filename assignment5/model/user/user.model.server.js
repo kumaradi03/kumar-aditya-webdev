@@ -27,11 +27,11 @@ module.exports = function (model) {
                 if(err)
                     deferred.abort(err);
                 else{
-                        deferred.resolve(status);
-                    }
-                });
-                return deferred.promise;
-            }
+                    deferred.resolve(status);
+                }
+            });
+        return deferred.promise;
+    }
 
     function findUserById(userId) {
         var deferred = q.defer();

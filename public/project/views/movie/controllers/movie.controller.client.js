@@ -1,0 +1,186 @@
+/**
+ * Created by aditya on 4/1/17.
+ */
+(function() {
+    angular
+        .module("Movies&More")
+        .controller("MovieController", MovieController);
+
+    function MovieController($location, MovieService, $rootScope, $routeParams, $sce, UserService) {
+        var vm = this;
+        var movieId = $routeParams['mid'];
+        vm.incrementLike = incrementLike;
+        vm.removeLike = removeLike;
+        vm.addToWishlist = addToWishlist;
+        vm.removeFromWishList = removeFromWishList;
+        vm.sellMovie = sellMovie;
+        vm.goToBuyMoviePage = goToBuyMoviePage;
+        vm.logout = logout;
+
+        if($rootScope.currentUser == undefined)
+            vm.userId = undefined;
+        else
+            vm.userId = $rootScope.currentUser._id;
+
+        function init() {
+
+            UserService
+                .findUserById(vm.userId)
+                .then(function (user) {
+                    vm.user = user;
+                    if(user.likes.length === 0)
+                        vm.like = false;
+                    for(var i=0;i< user.likes.length;i++)
+                    {
+                        if(user.likes[i]=== movieId)
+                            vm.like = true;
+                        else
+                            vm.like = false;
+                    }
+                });
+
+            UserService
+                .findUserById(vm.userId)
+                .then(function (user) {
+                    vm.user = user;
+                    if(user.wishlist.length === 0)
+                        vm.wishlist = false;
+                    for(var j=0;j< user.wishlist.length;j++)
+                    {
+                        if(user.wishlist[j]=== movieId)
+                            vm.wishlist = true;
+                        else
+                            vm.wishlist = false;
+                    }
+                });
+
+            MovieService
+                .getDetails(movieId)
+                .then(function (response) {
+                    response.data.poster_path = "http://image.tmdb.org/t/p/w185/" + response.data.poster_path;
+                    vm.movie = response.data;
+                    console.log(vm.movie);
+                })
+            MovieService
+                .getTrailer(movieId)
+                .then(function (response) {
+                    var videos = response.data.results;
+                    for (var i = 0; i < videos.length; i++) {
+                        videos[i].url = $sce.trustAsResourceUrl("https://www.youtube.com/embed/" + videos[i].key)
+                    }
+                    vm.videos = videos;
+                })
+
+            MovieService
+                .getDetails(movieId)
+                .then(function (response) {
+                    response.data.poster_path = "http://image.tmdb.org/t/p/w185/" + response.data.poster_path;
+                    vm.movie = response.data;
+                })
+
+            MovieService
+                .getCast(movieId)
+                .then(function (response) {
+                    console.log(response.data.cast);
+                    var casts = [];
+                    for (var i = 0; i < response.data.cast.length; i++) {
+                        if (response.data.cast[i].profile_path) {
+                            response.data.cast[i].profile_path = "http://image.tmdb.org/t/p/original/" + response.data.cast[i].profile_path;
+                            casts.push(response.data.cast[i]);
+                        }
+                    }
+                    vm.casts = casts;
+                })
+        }
+        init();
+
+        function incrementLike() {
+            MovieService
+                .incrementLike(vm.userId, movieId)
+                .then(function (response) {
+                    if (response.status === 200) {
+                        vm.message = "Like Successfully Updated!";
+                        // $route.reload();
+                        vm.like = true;
+                    } else {
+                        vm.error = "Unable to update like";
+                    }
+                });
+        }
+
+        function addToWishlist(){
+            MovieService
+                .addToWishlist(vm.userId, movieId)
+                .then(function (response) {
+                    if (response.status === 200) {
+                        vm.message = "Successfully added to WishList!";
+                        // $route.reload();
+                        vm.wishlist = true;
+                    } else {
+                        vm.error = "Unable to add to WishList";
+                    }
+                });
+        }
+
+        function removeLike() {
+            MovieService
+                .removeLike(vm.userId,movieId)
+                .then(function (response) {
+                    if (response.status === 200) {
+                        vm.message = "Like Successfully Updated!";
+                        // $route.reload();
+                        vm.like = false;
+                    } else {
+                        vm.error = "Unable to update like";
+                    }
+                });
+        }
+
+        function removeFromWishList(){
+            MovieService
+                .removeFromWishList(vm.userId,movieId)
+                .then(function (response) {
+                    if (response.status === 200) {
+                        vm.message = "Removed from wishlist!";
+                        // $route.reload();
+                        vm.wishlist = false;
+                    } else {
+                        vm.error = "Unable to remove from wishlist";
+                    }
+                });
+
+        }
+
+        function sellMovie(quantity){
+            var movie = {
+                _movieId:movieId,
+                seller:{_sellerId:vm.userId,quantity:quantity}
+            };
+            MovieService
+                .sellMovie(movie)
+                .then(function (response) {
+                    console.log(response);
+                    if (response) {
+                        vm.message = "Like Succsessfully Updated!";
+                        $location.url("/profile/inventory");
+                    } else {
+                        vm.error = "Unable to update like";
+                    }
+                });
+        }
+
+        function logout() {
+            UserService
+                .logout()
+                .then(function (res) {
+                    $location.url("/login");
+                },function (err) {
+                    $location.url("/login");
+                });
+        }
+
+        function goToBuyMoviePage(){
+            $location.url("/home/movie/"+movieId+"/buy");
+        }
+    }
+})();

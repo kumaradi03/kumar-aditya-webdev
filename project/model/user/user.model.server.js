@@ -21,11 +21,13 @@ module.exports = function (model) {
         deleteUser: deleteUser,
         incrementLike: incrementLike,
         removeLike: removeLike,
+        followSeller:followSeller,
         addToWishlist:addToWishlist,
         removeFromWishList:removeFromWishList,
         sellMovie: sellMovie,
         buyerUpdate:buyerUpdate,
         sellerUpdate:sellerUpdate,
+        unFollowSeller:unFollowSeller,
         findFacebookUser:findFacebookUser
     };
     return api;
@@ -60,6 +62,51 @@ module.exports = function (model) {
                     deferred.resolve(user);
                 }
 
+            });
+        return deferred.promise;
+    }
+
+    function followSeller(userId,sellerId){
+        var deferred = q.defer();
+        movieUserModel
+            .findById(userId)
+            .then(function (user,err) {
+                if(err)
+                    deferred.abort(err);
+                else{
+                    var found = false;
+                    for(var i=0;i<user.follows.length;i++){
+                        if(user.follows[i] === userId)
+                            found = true;
+                    }
+                    if(!found){
+                        user.follows.push(sellerId);
+                        user.save();
+                        deferred.resolve(user);
+                    }
+                }
+            });
+        return deferred.promise;
+    }
+
+    function unFollowSeller(userId,sellerId){
+        var deferred = q.defer();
+        movieUserModel
+            .findById(userId)
+            .then(function (user,err) {
+                if(err)
+                    deferred.abort(err);
+                else {
+                    console.log(user);
+                    for (var i = 0; i < user.follows.length; i++) {
+                        if(user.follows[i] == sellerId){
+                            console.log(user.follows[i]);
+                            user.follows.splice(i,1);
+                            user.save();
+                            deferred.resolve(user);
+                        }
+                    }
+                }
             });
         return deferred.promise;
     }

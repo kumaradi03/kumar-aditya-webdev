@@ -28,11 +28,11 @@ module.exports = function () {
             _seller: sellerId
         };
         transactionModel
-            .create(transaction, function (err, user){
+            .create(transaction, function (err, transaction1){
                 if(err)
                     deferred.abort(err);
                 else
-                    deferred.resolve(transaction);
+                    deferred.resolve(transaction1);
             });
         return deferred.promise;
     }

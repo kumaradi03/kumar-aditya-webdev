@@ -20,6 +20,8 @@ module.exports = function (app,model){
     app.get("/api2/users", findAllUsers);
     app.get("/api2/loggedIn", loggedIn);
     app.put("/api2/user/:uid", updateUser);
+    app.put("/api2/follow/user/:uid/seller/:sid", followSeller);
+    app.put("/api2/unFollow/user/:uid/seller/:sid",unFollowSeller);
     app.post("/api2/user", createUser);
     app.post("/api2/register", register);
     app.post("/api2/login", passport.authenticate('local'), login);
@@ -30,7 +32,9 @@ module.exports = function (app,model){
     app.put("/api2/user/:uid/movie/:mid/wish", addToWishlist);
     app.delete("/api2/user/:uid/movie/:mid/unwish", removeFromWishList);
 
+
     var movieUserModel = model.movieUserModel;
+    var movieModel = model.movieModel;
 
     var facebookConfig = {
         clientID     : "280520602398806",
@@ -60,6 +64,37 @@ module.exports = function (app,model){
                 }
             );
     }
+
+    function followSeller(req,res){
+        var userId = req.params['uid'];
+        var sellerId = req.params['sid'];
+        movieUserModel
+            .followSeller(userId,sellerId)
+            .then(
+                function(user){
+                    res.send(user);
+                },
+                function(err){
+                    res.sendStatus(500).send(err);
+                }
+            );
+    }
+
+    function unFollowSeller(req,res){
+        var userId = req.params['uid'];
+        var sellerId = req.params['sid'];
+        movieUserModel
+            .unFollowSeller(userId,sellerId)
+            .then(
+                function(user){
+                    res.send(user);
+                },
+                function(err){
+                    res.sendStatus(500).send(err);
+                }
+            );
+    }
+
 
 
     function localStrategy(username, password, done) {
@@ -230,6 +265,7 @@ module.exports = function (app,model){
     function updateUser(req, res) {
         var userId = req.params.uid;
         var newUser = req.body;
+        newUser.password = bcrypt.hashSync(newUser.password);
         movieUserModel
             .updateUser(userId,newUser)
             .then(function (user) {
@@ -245,7 +281,13 @@ module.exports = function (app,model){
         movieUserModel
             .incrementLike(userId,movieId)
             .then(function (user) {
-                res.send(user);
+                movieModel
+                    .incrementLike(userId,movieId)
+                    .then(function (movie) {
+                        res.send(movie);
+                    },function (err) {
+                        res.sendStatus(500).send(err);
+                    });
             }, function (err) {
                 res.sendStatus(500).send(err);
             });
@@ -269,7 +311,13 @@ module.exports = function (app,model){
         movieUserModel
             .removeLike(userId,movieId)
             .then(function (user) {
-                res.send(user);
+                movieModel
+                    .removeLike(userId,movieId)
+                    .then(function (movie) {
+                        res.send(movie);
+                    },function (err) {
+                        res.sendStatus(500).send(err);
+                    });
             }, function (err) {
                 res.sendStatus(500).send(err);
             });

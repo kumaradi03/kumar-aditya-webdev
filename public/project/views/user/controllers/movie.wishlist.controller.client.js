@@ -6,9 +6,9 @@
         .module("Movies&More")
         .controller("MovieWishListController", movieWishListController);
 
-    function movieWishListController(UserService, MovieService, $location, $rootScope) {
+    function movieWishListController(UserService, MovieService, $location, loggedIn) {
         var vm = this;
-        var userId = $rootScope.currentUser._id;
+        var userId = loggedIn._id;
         vm.openNav = openNav;
         vm.closeNav = closeNav;
         vm.logout = logout;
@@ -20,7 +20,7 @@
                 .then(function (user) {
                     vm.user = user;
                     if(user.wishlist.length === 0)
-                        vm.message = "No movies in the wishList";
+                        vm.error = "No movies in the wishList";
                     else{
                         getMoviePosters(user.wishlist);
                     }

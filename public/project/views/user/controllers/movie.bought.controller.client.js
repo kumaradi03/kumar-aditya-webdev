@@ -6,9 +6,9 @@
         .module("Movies&More")
         .controller("MoviesBoughtController", MoviesBoughtController);
 
-    function MoviesBoughtController ($location,TransactionService,$rootScope,MovieService,UserService) {
+    function MoviesBoughtController ($location,TransactionService,loggedIn,MovieService,UserService) {
         var vm = this;
-        var userId = $rootScope.currentUser._id;
+        var userId = loggedIn._id;
         vm.openNav = openNav;
         vm.closeNav = closeNav;
         vm.logout = logout;
@@ -27,7 +27,7 @@
                     vm.transaction = transaction;
                     console.log(transaction);
                     if(transaction.length == 0){
-                        vm.message = "No movies bought."
+                        vm.error = "No movies bought till now!!!."
                     }
                     else{
                         getMoviePosters(transaction);

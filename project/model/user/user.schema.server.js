@@ -11,6 +11,7 @@ module.exports = function () {
             displayName: String
         },
         type: String,
+        follows:[{type: mongoose.Schema.Types.ObjectId, ref:'movieUserModel'}],
         password: String,
         firstName: String,
         lastName: String,
@@ -20,7 +21,6 @@ module.exports = function () {
         likes:[String],
         wishlist:[String],
         sold_movies:[{_movieId:String,quantity:Number}],
-        comments:[{_movieId: String, comments: String}],
         dateCreated: {type: Date, default:Date.now()}
     }, {collection: 'project.user'});
 

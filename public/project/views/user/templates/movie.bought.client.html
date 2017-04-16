@@ -26,26 +26,39 @@
 </div>
 
 <div id="main" class="container-fluid">
+    <h1>Bought Movies</h1>
+    <div ng-show ="model.error" class="alert alert-danger" role="alert">
+        {{model.error}}
+    </div>
     <table class="table table-inverse">
         <thead>
         <tr>
-            <th>#</th>
-            <th>Movie</th>
-            <th>Seller Name</th>
-            <th>Seller Email</th>
-            <th>Purchase Date</th>
+            <th class="hidden-xs"></th>
+            <th><h4><strong>Movie</strong></h4></th>
+            <th><h4><strong>Seller Name</strong></h4></th>
+            <th class="hidden-xs"><h4><strong>Seller Email</strong></h4></th>
+            <th class="hidden-xs"><h4><strong>Purchase Date</strong></h4></th>
         </tr>
         </thead>
         <tbody data-ng-repeat="movie in model.boughtMovies track by $index">
-        <tr>
-            <th scope="row">{{$index+1}}</th>
+        <tr class="panel panel-default">
+            <th scope="row" class="hidden-xs">{{$index+1}}</th>
             <td>
                 <img class="img-responsive movie-seller-img" data-ng-src= {{movie}} alt="Image not found"/>
             </td>
-            <td>{{model.sellerDetails[$index].name}}</td>
-            <td>{{model.sellerDetails[$index].email}}</td>
-            <td>{{model.sellerDetails[$index].date}}</td>
+            <td><strong>{{model.sellerDetails[$index].name}}</strong></td>
+            <td class="hidden-xs"><strong>{{model.sellerDetails[$index].email}}</strong></td>
+            <td class="hidden-xs"><strong>{{model.sellerDetails[$index].date}}</strong></td>
         </tr>
         </tbody>
     </table>
 </div>
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid">
+        <div class="row navbar-text text-capitalize">
+            <div class="col-xs-4 text-center">
+                <i class="fa fa-copyright" aria-hidden="true"><strong>ADITYA</strong></i>
+            </div>
+        </div>
+    </div>
+</nav>

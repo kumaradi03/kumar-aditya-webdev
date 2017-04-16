@@ -7,9 +7,9 @@ module.exports = function () {
         _movieId: String,
         seller:[{_sellerId:String, quantity:Number}],
         buyer:[{_buyerId:String, quantity:Number}],
-        likes:[String],
+        likes:[{type: mongoose.Schema.Types.ObjectId, ref:'movieUserModel'}],
+        transactions:[{type: mongoose.Schema.Types.ObjectId, ref:'TransactionModel'}],
         dateCreated: {type: Date, default:Date.now()}
     }, {collection: 'project.movie'});
-
     return movieSchema;
 };

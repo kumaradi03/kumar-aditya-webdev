@@ -19,7 +19,9 @@
             "logout": logout,
             "loggedIn": loggedIn,
             "register": register,
-            "findAllUsers": findAllUsers
+            "findAllUsers": findAllUsers,
+            "followSeller": followSeller,
+            "unFollowSeller":unFollowSeller
         };
         return api;
 
@@ -29,6 +31,22 @@
                 .then(function(res){
                     return res.data;
                 });
+        }
+
+        function followSeller(userId,sellerId){
+            return $http.put("/api2/follow/user/"+userId+"/seller/"+sellerId)
+                .then(function(res){
+                    return res.data;
+                });
+
+        }
+
+        function unFollowSeller(userId,sellerId){
+            return $http.put("/api2/unFollow/user/"+userId+"/seller/"+sellerId)
+                .then(function(res){
+                    return res.data;
+                });
+
         }
 
         function createUser(user) {

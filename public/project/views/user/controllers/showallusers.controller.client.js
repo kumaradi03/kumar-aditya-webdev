@@ -6,9 +6,9 @@
         .module("Movies&More")
         .controller("ShowALlUsersController", showALlUsersController);
 
-    function showALlUsersController($location, UserService, MovieService, $rootScope) {
+    function showALlUsersController($location, UserService, loggedIn) {
         var vm = this;
-        var userId = $rootScope.currentUser._id;
+        var userId = loggedIn._id;
         vm.openNav = openNav;
         vm.closeNav = closeNav;
         vm.logout = logout;

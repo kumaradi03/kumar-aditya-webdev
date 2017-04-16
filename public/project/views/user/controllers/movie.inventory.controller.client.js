@@ -6,9 +6,9 @@
         .module("Movies&More")
         .controller("InventoryController", InventoryController);
 
-    function InventoryController ($location,MovieService,$rootScope,UserService) {
+    function InventoryController ($location,MovieService,loggedIn,UserService) {
         var vm = this;
-        var userId = $rootScope.currentUser._id;
+        var userId = loggedIn._id;
         vm.openNav = openNav;
         vm.closeNav = closeNav;
         vm.logout = logout;
@@ -20,7 +20,7 @@
                 .then(function (user) {
                     vm.user = user;
                     if(user.sold_movies.length === 0)
-                        vm.message = "No movies in the inventory";
+                        vm.error = "No movies in the inventory";
                     else{
                         vm.sold_movies = user.sold_movies;
                         getMoviePosters();

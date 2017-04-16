@@ -6,7 +6,7 @@
         .module("Movies&More")
         .controller("MovieController", MovieController);
 
-    function MovieController($location, MovieService, $rootScope, $routeParams, $sce, UserService) {
+    function MovieController($location, MovieService, loggedIn, $routeParams, $sce, UserService) {
         var vm = this;
         var movieId = $routeParams['mid'];
         vm.incrementLike = incrementLike;
@@ -17,12 +17,18 @@
         vm.goToBuyMoviePage = goToBuyMoviePage;
         vm.logout = logout;
 
-        if($rootScope.currentUser == undefined)
+        if(loggedIn == undefined)
             vm.userId = undefined;
         else
-            vm.userId = $rootScope.currentUser._id;
+            vm.userId = loggedIn._id;
 
         function init() {
+
+            UserService
+                .findUserById(vm.userId)
+                .then(function (user) {
+                    vm.user1 = user;
+                });
 
             UserService
                 .findUserById(vm.userId)
@@ -59,7 +65,6 @@
                 .then(function (response) {
                     response.data.poster_path = "http://image.tmdb.org/t/p/w185/" + response.data.poster_path;
                     vm.movie = response.data;
-                    console.log(vm.movie);
                 })
             MovieService
                 .getTrailer(movieId)
@@ -81,7 +86,6 @@
             MovieService
                 .getCast(movieId)
                 .then(function (response) {
-                    console.log(response.data.cast);
                     var casts = [];
                     for (var i = 0; i < response.data.cast.length; i++) {
                         if (response.data.cast[i].profile_path) {
@@ -98,7 +102,8 @@
             MovieService
                 .incrementLike(vm.userId, movieId)
                 .then(function (response) {
-                    if (response.status === 200) {
+                    console.log(response);
+                    if (response) {
                         vm.message = "Like Successfully Updated!";
                         // $route.reload();
                         vm.like = true;
@@ -112,7 +117,7 @@
             MovieService
                 .addToWishlist(vm.userId, movieId)
                 .then(function (response) {
-                    if (response.status === 200) {
+                    if (response) {
                         vm.message = "Successfully added to WishList!";
                         // $route.reload();
                         vm.wishlist = true;
@@ -126,11 +131,14 @@
             MovieService
                 .removeLike(vm.userId,movieId)
                 .then(function (response) {
+                    console.log(response);
                     if (response.status === 200) {
+                        console.log("manuj");
                         vm.message = "Like Successfully Updated!";
                         // $route.reload();
                         vm.like = false;
                     } else {
+                        console.log("adi");
                         vm.error = "Unable to update like";
                     }
                 });

@@ -6,15 +6,15 @@
         .module("Movies&More")
         .controller("SearchController", SearchController);
 
-    function SearchController($routeParams,$location,HomeService,UserService,$rootScope) {
+    function SearchController($routeParams,$location,HomeService,UserService,loggedIn) {
         var vm = this;
         vm.query = $routeParams['query'];
         vm.logout = logout;
 
-        if($rootScope.currentUser == undefined)
+        if(loggedIn.currentUser == undefined)
             vm.userId = undefined;
         else
-            vm.userId = $rootScope.currentUser._id;
+            vm.userId = loggedIn._id;
 
         function init() {
             UserService

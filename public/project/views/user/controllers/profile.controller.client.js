@@ -6,9 +6,9 @@
         .module("Movies&More")
         .controller("ProfileController", ProfileController);
 
-    function ProfileController($routeParams, UserService,$location,$rootScope) {
+    function ProfileController(UserService,$location,loggedIn) {
         var vm = this;
-        vm.userId = $rootScope.currentUser._id;
+        vm.userId =loggedIn._id;
         vm.update = update;
         vm.deleteUser = deleteUser;
         vm.openNav = openNav;
@@ -68,15 +68,24 @@
          }
 
         function update(newUser) {
-            UserService
-                .updateUser(vm.userId, newUser)
-                .then(function (user) {
-                    if(user) {
-                        vm.message = "User Successfully Updated!";
-                    } else {
-                        vm.error = "Unable to update user";
-                    }
-                });
+             if(newUser.password === newUser.verifypassword) {
+                 UserService
+                     .updateUser(vm.userId, newUser)
+                     .then(function (user) {
+                         if (user) {
+                             vm.message = "User Successfully Updated!";
+                             vm.error= null;
+                         } else {
+                             vm.error = "Unable to update user";
+                             vm.message= null;
+                         }
+                     })
+             }
+             else{
+                 vm.error = "Password doesnt match.";
+                 vm.message= null;
+             }
+
         }
 
         function deleteUser() {

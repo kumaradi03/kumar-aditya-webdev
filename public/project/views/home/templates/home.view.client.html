@@ -18,7 +18,7 @@
             </div>
     </div>
 </nav>
-<div class="container-fluid">
+<div class="container-fluid panel panel-default">
     <div class="row">
         <div class="col-md-1 hidden-sm hidden-xs">
         </div>
@@ -35,7 +35,10 @@
                 </div>
                 <div class="carousel-inner" role="listbox">
                     <div class="item" data-ng-repeat="image in model.images" data-ng-class="{active:$first}">
-                        <img data-ng-src="{{image}}" alt="carousel {{$index}}"/>
+                        <img data-ng-src="{{image.backdrop_path}}" alt="carousel {{$index}}"/>
+                        <a class="carousel-caption home-image" ng-click="model.getMovieDetails(movie.id)">
+                            <h3>{{image.original_title}}</h3>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -45,15 +48,16 @@
     </div>
     <div class ="row">
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-3 col-sm-4 col-xs-6 placeholder" data-ng-repeat="image in model.popularImages">
+            <div class="row ">
+                <h1 class="panel panel-default"><strong>Popular Movies</strong></h1>
+                <div class="col-md-3 col-sm-4 col-xs-6 placeholder panel panel-default" data-ng-repeat="image in model.popularImages">
                     <div ng-switch = "model.userId">
                         <a ng-switch-when= undefined href="#/movie/{{image.id}}">
                             <div class="thumbnail">
                                 <div class="caption">
                                     <h4>{{image.original_title}}</h4>
                                 </div>
-                                <img class="img-responsive" data-ng-src="{{image.backdrop_path}}" alt="Image not found"/>
+                                <img class="img-responsive img-cards" data-ng-src="{{image.backdrop_path}}" alt="Image not found"/>
                             </div>
                         </a>
                         <a ng-switch-default href="#/movie/{{image.id}}">
@@ -69,5 +73,41 @@
             </div>
         </div>
     </div>
+    <div class ="row">
+        <div class="container-fluid">
+            <div class="row ">
+                <h1 class="panel panel-default"><strong>Upcoming Movies</strong></h1>
+                <div class="col-md-3 col-sm-4 col-xs-6 placeholder panel panel-default" data-ng-repeat="image in model.upcomingImages">
+                    <div ng-switch = "model.userId">
+                        <a ng-switch-when= undefined href="#/movie/{{image.id}}">
+                            <div class="thumbnail">
+                                <div class="caption">
+                                    <h4>{{image.original_title}}</h4>
+                                </div>
+                                <img class="img-responsive img-cards" data-ng-src="{{image.backdrop_path}}" alt="Image not found"/>
+                            </div>
+                        </a>
+                        <a ng-switch-default href="#/movie/{{image.id}}">
+                            <div class="thumbnail">
+                                <div class="caption">
+                                    <h4>{{image.original_title}}</h4>
+                                </div>
+                                <img class="img-responsive img-cards" data-ng-src="{{image.backdrop_path}}" alt="Image not found"/>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid">
+        <div class="row navbar-text text-capitalize">
+            <div class="col-xs-4 text-center">
+                <i class="fa fa-copyright" aria-hidden="true"><strong>ADITYA</strong></i>
+            </div>
+        </div>
+    </div>
+</nav>
 

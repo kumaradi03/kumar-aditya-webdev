@@ -12,7 +12,9 @@ module.exports = function () {
     var api = {
         findMovieById: findMovieById,
         sellMovie:sellMovie,
-        buyMovie:buyMovie
+        buyMovie:buyMovie,
+        incrementLike:incrementLike,
+        removeLike:removeLike
         // deleteFromMovie:deleteFromMovie
     };
     return api;
@@ -59,13 +61,61 @@ module.exports = function () {
         return deferred.promise;
     }
 
-    function buyMovie(buyerId,sellerId,movieId) {
+    function incrementLike(userId,movieId) {
+        var deferred = q.defer();
+        movieModel
+            .findOne({_movieId:movieId})
+            .then(function (movie,err) {
+                if(movie){
+                    movie.likes.push(userId);
+                    deferred.resolve(movie);
+                    movie.save();
+                }
+                else{
+                    var newMovie = {
+                        _movieId:movieId,
+                        likes:[userId]
+                    };
+                    movieModel
+                        .create(newMovie,function (err, movie){
+                            if(err)
+                                deferred.abort(err);
+                            else
+                                deferred.resolve(movie);
+                        });
+                }
+            });
+        return deferred.promise;
+    }
+
+    function removeLike(userId,movieId) {
+        var deferred = q.defer();
+        movieModel
+            .findOne({_movieId:movieId})
+            .then(function (movie,err) {
+                if(err)
+                    deferred.abort(err);
+                else{
+                    var index = movie.likes.indexOf(userId);
+                    console.log(index);
+                    if(index > -1){
+                        movie.likes.splice(index,1);
+                        movie.save();
+                        deferred.resolve(movie);
+                    }
+                }
+            });
+        return deferred.promise;
+    }
+
+    function buyMovie(buyerId,sellerId,movieId,transaction) {
         var deferred = q.defer();
         movieModel
             .findOne({_movieId:movieId})
             .then(function (movie,err) {
                 if(movie){
                     var found = false;
+                    movie.transactions.push(transaction._id);
                     for(var i=0;i<movie.seller.length;i++){
                         if(movie.seller[i]._sellerId === sellerId){
                             movie.seller[i].quantity -= 1;

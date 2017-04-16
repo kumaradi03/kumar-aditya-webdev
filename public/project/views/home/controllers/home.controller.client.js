@@ -6,15 +6,15 @@
         .module("Movies&More")
         .controller("HomeController", HomeController);
 
-    function HomeController($location,HomeService,UserService,$rootScope) {
+    function HomeController($location,HomeService,UserService,loggedIn) {
         var vm = this;
         vm.searchMovie =searchMovie;
         vm.logout = logout;
 
-        if($rootScope.currentUser == undefined)
+        if(loggedIn == undefined)
             vm.userId = undefined;
         else
-            vm.userId = $rootScope.currentUser._id;
+            vm.userId = loggedIn._id;
 
         function init() {
 
@@ -30,10 +30,12 @@
                     var data=[];
                     for(var i=0;i<15;i++)
                     {
-                        var movies = "http://image.tmdb.org/t/p/original/"+response.data.results[i].backdrop_path;
+                        var movies = response.data.results[i];
+                        movies.backdrop_path = "http://image.tmdb.org/t/p/original/"+movies.backdrop_path;
                         data.push(movies);
                     }
                     vm.images = data;
+                    console.log(vm.images = data);
                 });
 
             HomeService
@@ -47,6 +49,20 @@
                         populardata.push(popularMovies);
                     }
                     vm.popularImages = populardata;
+                });
+
+            HomeService
+                .getUpcoming()
+                .then(function (response) {
+                    var upcomingdata=[];
+                    for(var i=0;i<16;i++)
+                    {
+                        var upcomingMovies = response.data.results[i];
+                        upcomingMovies.backdrop_path = "http://image.tmdb.org/t/p/original"+upcomingMovies.backdrop_path;
+                        upcomingdata.push(upcomingMovies);
+                    }
+                    vm.upcomingImages = upcomingdata;
+                    console.log(vm.upcomingImages);
                 });
         }
         init();

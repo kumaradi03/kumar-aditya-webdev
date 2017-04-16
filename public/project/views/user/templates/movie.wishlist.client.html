@@ -22,25 +22,39 @@
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
     <a href="#/profile">Edit Profile</a>
     <a href="#/profile/movieBought">Movies Bought</a>
+    <a href="#/profile/movieLike">Movies Liked</a>
 </div>
 
 <div id="main" class="container-fluid">
+    <h1>Wishlist</h1>
+    <div ng-show ="model.error" class="alert alert-danger" role="alert">
+        {{model.error}}
+    </div>
     <table class="table table-inverse">
         <thead>
         <tr>
-            <th>#</th>
-            <th>Movie</th>
-            <th></th>
+            <th class="hidden-xs"></th>
+            <th ><h4><strong>Movie</strong></h4></th>
+            <th class="hidden-xs"><h4><strong></strong></h4></th>
         </tr>
         </thead>
         <tbody data-ng-repeat="movie in model.wishListMovies track by $index">
-        <tr>
-            <th scope="row">{{$index+1}}</th>
-            <td>
+        <tr class="panel panel-default">
+            <th class="hidden-xs" scope="row">{{$index+1}}</th>
+            <td class="hidden-xs">
                 <img class="img-responsive movie-seller-img" data-ng-src= {{movie.data.poster_path}} alt="Image not found"/>
             </td>
-            <td>{{movie.data.original_title}}</td>
+            <td><h4><strong>{{movie.data.original_title}}</strong></h4></td>
         </tr>
         </tbody>
     </table>
 </div>
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid">
+        <div class="row navbar-text text-capitalize">
+            <div class="col-xs-4 text-center">
+                <i class="fa fa-copyright" aria-hidden="true"><strong>ADITYA</strong></i>
+            </div>
+        </div>
+    </div>
+</nav>

@@ -6,11 +6,12 @@
         .module("Movies&More")
         .controller("AdminRegisterController", adminRegisterController);
 
-    function adminRegisterController($location, UserService,$rootScope) {
+    function adminRegisterController($location, UserService,loggedIn) {
         var vm = this;
-        var userId = $rootScope.currentUser._id;
+        var userId = loggedIn._id;
         vm.createUser = createUser;
         vm.goToProfile = goToProfile;
+        vm.logout = logout;
 
         UserService
             .findUserById(userId)
@@ -47,6 +48,17 @@
                         vm.error = "Sorry Could not register";
                 });
         }
+
+        function logout() {
+            UserService
+                .logout()
+                .then(function (res) {
+                    $location.url("/login");
+                },function (err) {
+                    $location.url("/login");
+                });
+        }
+
 
     }
 })();

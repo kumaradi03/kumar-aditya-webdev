@@ -9,9 +9,9 @@
         .module("Movies&More")
         .controller("UpdateUserController", UpdateUserController);
 
-    function UpdateUserController($routeParams, UserService,$location,$rootScope) {
+    function UpdateUserController($routeParams, UserService,$location,loggedIn) {
         var vm = this;
-        vm.userId = $rootScope.currentUser._id;
+        vm.userId = loggedIn._id;
         var id = $routeParams['uid'];
         vm.update = update;
         vm.goToHome = goToHome;

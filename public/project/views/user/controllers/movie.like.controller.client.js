@@ -6,9 +6,9 @@
         .module("Movies&More")
         .controller("MovieLikeController", movieLikeController);
 
-    function movieLikeController($location, UserService, MovieService, $location, $rootScope) {
+    function movieLikeController($location, UserService, MovieService,loggedIn) {
         var vm = this;
-        var userId = $rootScope.currentUser._id;
+        var userId = loggedIn._id;
         vm.openNav = openNav;
         vm.closeNav = closeNav;
         vm.logout = logout;
@@ -19,8 +19,10 @@
                 .findUserById(userId)
                 .then(function (user) {
                     vm.user = user;
-                    if(user.likes.length === 0)
+                    if(user.likes.length === 0){
                         vm.message = "No movies liked";
+                        vm.error = null;
+                    }
                     else{
                         getMoviePosters(user.likes);
                     }

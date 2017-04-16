@@ -42,23 +42,56 @@ module.exports = function (app,model){
             });
     }
 
+    // function buyMovie(req,res){
+    //     var buyerId = req.params['uid'];
+    //     var movieId = req.params['mid'];
+    //     var sellerId = req.params['sid'];
+    //     movieModel
+    //         .buyMovie(buyerId,sellerId,movieId)
+    //         .then(function (movie) {
+    //             movieUserModel
+    //                 .buyerUpdate(buyerId,movieId)
+    //                 .then(function (user) {
+    //                     movieUserModel
+    //                         .sellerUpdate(sellerId,movieId)
+    //                         .then(function (user1) {
+    //                             transactionModel
+    //                                 .addTransaction(buyerId,sellerId,movieId)
+    //                                 .then(function (transaction) {
+    //                                     res.send(transaction);
+    //                                 },function (err) {
+    //                                     res.sendStatus(500).send(err);
+    //                                 });
+    //                         }, function (err) {
+    //                             res.sendStatus(500).send(err);
+    //                         });
+    //                 }, function (err) {
+    //                     res.sendStatus(500).send(err);
+    //                 });
+    //         }, function (err) {
+    //             res.sendStatus(500).send(err);
+    //         });
+    // }
+
+
     function buyMovie(req,res){
         var buyerId = req.params['uid'];
         var movieId = req.params['mid'];
         var sellerId = req.params['sid'];
-        movieModel
-            .buyMovie(buyerId,sellerId,movieId)
-            .then(function (movie) {
-                movieUserModel
-                    .buyerUpdate(buyerId,movieId)
-                    .then(function (user) {
+        transactionModel
+            .addTransaction(buyerId,sellerId,movieId)
+            .then(function (transaction) {
+                console.log(transaction);
+                movieModel
+                    .buyMovie(buyerId,sellerId,movieId,transaction)
+                    .then(function (movie) {
                         movieUserModel
-                            .sellerUpdate(sellerId,movieId)
-                            .then(function (user1) {
-                                transactionModel
-                                    .addTransaction(buyerId,sellerId,movieId)
-                                    .then(function (transaction) {
-                                        res.send(transaction);
+                            .buyerUpdate(buyerId,movieId)
+                            .then(function (user) {
+                                movieUserModel
+                                    .sellerUpdate(sellerId,movieId)
+                                    .then(function (user) {
+                                        res.send(user);
                                     },function (err) {
                                         res.sendStatus(500).send(err);
                                     });

@@ -53,14 +53,6 @@
                     loggedIn: checkLoggedIn
                 }
             })
-            .when("/home/:uid/movie/:mid",{
-                templateUrl: 'views/movie/templates/movies.view.client.html',
-                controller: 'MovieController',
-                controllerAs: 'model',
-                resolve:{
-                    loggedIn: checkLoggedIn
-                }
-            })
             .when("/home/movie/:mid/buy",{
                 templateUrl: 'views/movie/templates/buyMovie.client.html',
                 controller: 'BuyMovieController',
@@ -148,21 +140,20 @@
                 resolve:{
                     loggedIn: checkUser
                 }
-            });
+            })
+            .otherwise({redirectTo: "/home"});
 
-        function checkLoggedIn(UserService,$location,$q,$rootScope  ) {
+        function checkLoggedIn(UserService,$location,$q,$rootScope ) {
             var deferred = $q.defer();
             UserService
                 .loggedIn()
                 .then(function (res) {
                     var user = res;
                     if(user == '0'){
-                        $rootScope.currentUser = user;
                         deferred.reject();
                         $location.url("/login");
                     }else{
-                        $rootScope.currentUser = user;
-                        deferred.resolve();
+                        deferred.resolve(user);
                     }
                 },function (err) {
                     deferred.reject();
@@ -178,11 +169,9 @@
                 .then(function (res) {
                     var user = res;
                     if(user == '0'){
-                        $rootScope.currentUser = undefined;
-                        deferred.resolve();
+                        deferred.resolve(undefined);
                     }else{
-                        $rootScope.currentUser = user;
-                        deferred.resolve();
+                        deferred.resolve(user);
                     }
                 },function (err) {
                     deferred.reject();

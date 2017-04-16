@@ -7,7 +7,7 @@
                 </a>
             </div>
             <div ng-show = "model.userId == '{{model.userId}}'">
-                <a href="#/profile">{{model.user.firstName}}&nbsp;&nbsp;</a>
+                <a href="#/profile">{{model.user1.firstName}}&nbsp;&nbsp;</a>
                 <a ng-click="model.logout()">
                     <span class="glyphicon glyphicon-log-out"></span>
                 </a>
@@ -22,7 +22,7 @@
     <div class="row">
         <div class="col-sm-8">
             <div class ="row">
-                <div class="col-sm-3">
+                <div class="col-sm-3 panel panel-default">
                     <img class="img-responsive movie-img" data-ng-src= {{model.movie.poster_path}} alt="Image not found"/>
                 </div>
                 <div class="col-sm-9 ">
@@ -71,7 +71,7 @@
                         </div>
                     </div>
                     <div class="col-sm-8 ">
-                        <h4 class="plot">
+                        <h4 class="plot hidden-sm">
                             Plot
                         </h4>
                         <h4 class="plotdetails">
@@ -89,17 +89,26 @@
                 <h2 class ="plot">
                     Casts
                 </h2>
-                <div class="col-md-2 col-sm-4 col-xs-6 placeholder" data-ng-repeat="cast in model.casts">
-                    <img class="img-responsive img-cast" data-ng-src="{{cast.profile_path}}" alt="Image not found"/>
-                    <h6>{{cast.name}}</h6>
+                <div class="col-md-4 col-sm-6 col-xs-12 placeholder panel panel-default text-center" data-ng-repeat="cast in model.casts">
+                    <img class="img-responsive img-cast align=middle" data-ng-src="{{cast.profile_path}}" alt="Image not found"/>
+                    <h6><strong>{{cast.name}}</strong></h6>
                 </div>
             </div>
         </div>
-        <div class="col-sm-4 panel panel-default">
-            <div class= "youtube-widget" data-ng-repeat="video in model.videos">
+        <div class="col-sm-4 ">
+            <div class= "youtube-widget panel panel-default" data-ng-repeat="video in model.videos">
                 <iframe class ="youtube-widget-iframe" src="{{video.url}}" frameborder="0" allowfullscreen></iframe>
             </div>
         </div>
     </div>
 </div>
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid">
+        <div class="row navbar-text text-capitalize">
+            <div class="col-xs-4 text-center">
+                <i class="fa fa-1x fa-align-center fa-copyright" aria-hidden="true"><strong>ADITYA</strong></i>
+            </div>
+        </div>
+    </div>
+</nav>
 

@@ -20,29 +20,39 @@
         <a class="glyphicon glyphicon-remove pull-right"></a>
     </span>
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <a href="#/profile/movieSold">Edit Profile</a>
-    <a href="#/profile/inventory">Show Users</a>
+    <a href="#/profile/">Edit Profile</a>
+    <a href="#/profile/showUsers">Show Users</a>
 </div>
 
 <div id="main" class="container-fluid">
+    <h1>Transactions</h1>
     <table class="table table-inverse">
         <thead>
         <tr>
-            <th>#</th>
-            <th>Movie Purchased</th>
-            <th>Buyer</th>
-            <th>Seller</th>
-            <th>Purchase Date</th>
+            <!--<th class="hidden-xs"></strong></h4></th>-->
+            <th><h4><strong>Movie Purchased</strong></h4></th>
+            <th><h4><strong>Buyer</strong></h4></th>
+            <th><h4><strong>Seller</strong></h4></th>
+            <th class="hidden-xs"><h4><strong>Purchase Date</strong></h4></th>
         </tr>
         </thead>
         <tbody data-ng-repeat="transaction in model.transactions track by $index">
-        <tr>
-            <th scope="row">{{$index+1}}</th>
-            <td>{{model.movies[$index].data.original_title}}</td>
-            <td>{{model.buyer[$index].firstName+" "+model.buyer[$index].lastName}}</td>
-            <td>{{model.seller[$index].firstName+" "+model.seller[$index].lastName}}</td>
-            <td>{{transaction.dateCreated}}</td>
+        <tr data-ng-if ="model.buyer[$index].firstName && model.seller[$index].firstName">
+            <!--<th scope="row" class="hidden-xs"><h4><strong>{{$index+1}}</strong></h4></th>-->
+            <th><h5><strong>{{model.movies[$index].data.original_title}}</strong></h5></th>
+            <th><h5><strong>{{model.buyer[$index].firstName+" "+model.buyer[$index].lastName}}</strong></h5></th>
+            <th><h5><strong>{{model.seller[$index].firstName+" "+model.seller[$index].lastName}}</strong></h5></th>
+            <td class="hidden-xs"><h5><strong>{{transaction.dateCreated}}</strong></h5></td>
         </tr>
         </tbody>
     </table>
 </div>
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid">
+        <div class="row navbar-text text-capitalize">
+            <div class="col-xs-4 text-center">
+                <i class="fa fa-copyright" aria-hidden="true"><strong>ADITYA</strong></i>
+            </div>
+        </div>
+    </div>
+</nav>

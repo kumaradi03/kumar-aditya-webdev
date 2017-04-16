@@ -43,7 +43,10 @@
         }
 
         function incrementLike(userId, movieId) {
-            return $http.put("/api2/user/"+userId+"/movie/"+movieId+'/like');
+            return $http.put("/api2/user/"+userId+"/movie/"+movieId+'/like')
+                .then(function (res) {
+                    return res.data;
+                });
         }
 
         function addToWishlist(userId, movieId) {

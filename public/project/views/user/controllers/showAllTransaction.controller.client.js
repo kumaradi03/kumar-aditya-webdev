@@ -6,9 +6,9 @@
         .module("Movies&More")
         .controller("ShowALlTransactionsController", ShowALlTransactionsController);
 
-    function ShowALlTransactionsController($location, UserService, MovieService,TransactionService, $rootScope) {
+    function ShowALlTransactionsController($location, UserService, MovieService,TransactionService, loggedIn) {
         var vm = this;
-        var userId = $rootScope.currentUser._id;
+        var userId = loggedIn._id;
         vm.openNav = openNav;
         vm.closeNav = closeNav;
         vm.logout = logout;

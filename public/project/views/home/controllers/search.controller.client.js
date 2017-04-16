@@ -11,7 +11,7 @@
         vm.query = $routeParams['query'];
         vm.logout = logout;
 
-        if(loggedIn.currentUser == undefined)
+        if(loggedIn == undefined)
             vm.userId = undefined;
         else
             vm.userId = loggedIn._id;

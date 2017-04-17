@@ -9,25 +9,31 @@
         .module("Movies&More")
         .controller("RegisterController", RegisterController);
 
-    function RegisterController($location, UserService) {
+    function RegisterController($location, UserService,$scope) {
         var vm = this;
         vm.createUser = createUser;
         vm.goToProfile = goToProfile;
 
         function createUser (user) {
-            if(user.password === user.verifypassword)
-            {
-                UserService
-                    .findUserByUsername(user.username)
-                    .then(function (usr) {
-                        if(!usr)
-                            goToProfile(user);
-                        else
-                            vm.error = "Sorry Could not register";
-                    });
+            if($scope.registerNew.$valid){
+                if(user.password === user.verifypassword)
+                {
+                    UserService
+                        .findUserByUsername(user.username)
+                        .then(function (usr) {
+                            if(!usr)
+                                goToProfile(user);
+                            else
+                                vm.error = "Sorry Could not register";
+                        });
+                }
+                else
+                    vm.error = "Passwords mismatch.";
             }
-            else
-                vm.error = "Passwords mismatch.";
+            else{
+                $scope.registerNew.submitted = true;
+                vm.error ="Form Incomplete";
+            }
         }
 
         function goToProfile(user){

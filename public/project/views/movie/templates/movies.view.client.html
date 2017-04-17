@@ -58,6 +58,9 @@
                             </div>
                         </div>
                         <div ng-show= "model.user.type == 'Seller'">
+                            <div ng-show ="model.error" class="alert alert-danger" role="alert">
+                                {{model.error}}
+                            </div>
                             <div>
                                 <input ng-model = "quantity"
                                        type="number"

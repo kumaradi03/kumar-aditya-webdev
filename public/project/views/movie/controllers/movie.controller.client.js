@@ -160,21 +160,28 @@
         }
 
         function sellMovie(quantity){
-            var movie = {
-                _movieId:movieId,
-                seller:{_sellerId:vm.userId,quantity:quantity}
-            };
-            MovieService
-                .sellMovie(movie)
-                .then(function (response) {
-                    console.log(response);
-                    if (response) {
-                        vm.message = "Like Succsessfully Updated!";
-                        $location.url("/profile/inventory");
-                    } else {
-                        vm.error = "Unable to update like";
-                    }
-                });
+            if( quantity <= 0 )
+            {
+                vm.error ="Quantity should be more than zero" ;
+                console.log(vm.error);
+            }
+            else{
+                var movie = {
+                    _movieId:movieId,
+                    seller:{_sellerId:vm.userId,quantity:quantity}
+                };
+                MovieService
+                    .sellMovie(movie)
+                    .then(function (response) {
+                        console.log(response);
+                        if (response) {
+                            vm.message = "Like Succsessfully Updated!";
+                            $location.url("/profile/inventory");
+                        } else {
+                            vm.error = "Unable to update like";
+                        }
+                    });
+            }
         }
 
         function logout() {

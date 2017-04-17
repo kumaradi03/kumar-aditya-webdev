@@ -6,7 +6,7 @@
         .module("Movies&More")
         .controller("AdminRegisterController", adminRegisterController);
 
-    function adminRegisterController($location, UserService,loggedIn) {
+    function adminRegisterController($location, UserService,loggedIn,$scope) {
         var vm = this;
         var userId = loggedIn._id;
         vm.createUser = createUser;
@@ -20,19 +20,25 @@
             });
 
         function createUser (user) {
-            if(user.password === user.verifypassword)
-            {
-                UserService
-                    .findUserByUsername(user.username)
-                    .then(function (usr) {
-                        if(!usr)
-                            goToProfile(user);
-                        else
-                            vm.error = "Sorry Could not register";
-                    });
+            if($scope.registerNew.$valid){
+                if(user.password === user.verifypassword)
+                {
+                    UserService
+                        .findUserByUsername(user.username)
+                        .then(function (usr) {
+                            if(!usr)
+                                goToProfile(user);
+                            else
+                                vm.error = "Sorry Could not register";
+                        });
+                }
+                else
+                    vm.error = "Passwords mismatch.";
             }
-            else
-                vm.error = "Passwords mismatch.";
+            else{
+                $scope.registerNew.submitted = true;
+                vm.error ="Form Incomplete";
+            }
         }
 
         function goToProfile(user){

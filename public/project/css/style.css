@@ -230,6 +230,11 @@ img {
     border : solid grey;
 }
 
+form.submitted .ng-invalid
+{
+    border: 1px solid red;
+}
+
 .table,th{
     font-family: "Arial Hebrew";
     font-size: medium;

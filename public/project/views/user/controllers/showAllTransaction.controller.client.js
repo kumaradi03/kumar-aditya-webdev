@@ -26,11 +26,10 @@
                 .findAllTransactions()
                 .then(function (transaction) {
                     vm.transactions = transaction;
+                    console.log(vm.transactions);
                     if(transaction.length === 0)
                         vm.message = "No Transaction";
                     else{
-                        getBuyerDetails(transaction);
-                        getSellerDetails(transaction);
                         getMoviePosters(transaction);
                     }
                 });
@@ -58,12 +57,12 @@
                     });
             }
             vm.movies = movies;
-            console.log(vm.movies);
         }
 
         function getBuyerDetails(transaction){
             var buyers = [];
             for(var i=0;i<transaction.length;i++){
+                console.log(transaction[i]._buyer);
                 UserService
                     .findUserById(transaction[i]._buyer)
                     .then(function (user) {
@@ -71,6 +70,7 @@
                     });
             }
             vm.buyer = buyers;
+            console.log(buyers);
         }
 
         function getSellerDetails(transaction){
@@ -83,10 +83,10 @@
                     });
             }
             vm.seller = seller;
+            console.log(vm.seller);
         }
 
         function goToHome(){
-            console.log(vm.userId);
             $location.url("/home")
         }
 

@@ -26,6 +26,7 @@
                 .getSellerTransaction(userId)
                 .then(function (transaction) {
                     vm.transaction = transaction;
+                    vm.transaction.dateCreated;
                     if(transaction.length == 0){
                         vm.error = "No movies sold."
                     }
@@ -44,10 +45,11 @@
                     .getDetails(transaction[i]._movieId)
                     .then(function (movie) {
                         movie.data.poster_path = "http://image.tmdb.org/t/p/w185/" + movie.data.poster_path;
-                        sellerMovies.push(movie.data.poster_path);
+                        sellerMovies.push(movie);
                     });
             }
             vm.soldMovies = sellerMovies;
+            console.log(vm.soldMovies);
         }
 
         function getBuyerDetails(transaction){
@@ -57,9 +59,9 @@
                     .findUserById(transaction[i]._buyer)
                     .then(function (user) {
                         var user ={
-                            name:user.firstName+" "+user.lastName,
+                            name:user.firstName,
                             email:user.email,
-                            date:user.dateCreated.substring(0,10)
+                            // date:user.dateCreated.substring(0,10)
                         };
                         buyerDetails.push(user);
                     });

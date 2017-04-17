@@ -39,9 +39,11 @@
         </thead>
         <tbody data-ng-repeat="movie in model.sellerMovies track by $index">
         <tr class="panel panel-default">
-            <th scope="row" class="hidden-xs">{{$index+1}}</th>
+            <th scope="row" class="hidden-xs"></th>
             <td>
-                <img class="img-responsive movie-seller-img" data-ng-src= {{movie}} alt="Image not found"/>
+                <a href="#/movie/{{movie.data.id}}">
+                    <img class="img-responsive movie-seller-img" data-ng-src= {{movie.data.poster_path}} alt="Image not found"/>
+                </a>
             </td>
             <td><strong>{{model.sold_movies[$index].quantity}}</strong></td>
         </tr>

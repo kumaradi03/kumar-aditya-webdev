@@ -11,6 +11,7 @@
         var api = {
             "findUserByUsername": findUserByUsername,
             "createUser": createUser,
+            "createAdminUser":createAdminUser,
             "updateUser": updateUser,
             "findUserByCredentials": findUserByCredentials,
             "findUserById": findUserById,
@@ -53,6 +54,13 @@
             return $http.post("/api2/user",user)
                 .then(function(res){
                     return res.data;
+                });
+        }
+
+        function createAdminUser(user) {
+            return $http.post("/api2/admin/user",user)
+                .then(function(res){
+                    return res;
                 });
         }
 

@@ -37,13 +37,13 @@
 
         function goToProfile(user){
             UserService
-                .register(user)
-                .then(function (usr) {
-                    if(usr){
+                .createAdminUser(user)
+                .then(function (res) {
+                        if(res){
                         vm.message = "User Created";
-                        $location.url("/login")
+                        vm.error = null;
+                        // $location.url("/login")
                     }
-
                     else
                         vm.error = "Sorry Could not register";
                 });

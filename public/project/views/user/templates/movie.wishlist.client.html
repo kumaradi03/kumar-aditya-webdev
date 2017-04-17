@@ -23,6 +23,7 @@
     <a href="#/profile">Edit Profile</a>
     <a href="#/profile/movieBought">Movies Bought</a>
     <a href="#/profile/movieLike">Movies Liked</a>
+    <a href="#/profile/followSeller">Fav Seller</a>
 </div>
 
 <div id="main" class="container-fluid">
@@ -40,9 +41,11 @@
         </thead>
         <tbody data-ng-repeat="movie in model.wishListMovies track by $index">
         <tr class="panel panel-default">
-            <th class="hidden-xs" scope="row">{{$index+1}}</th>
+            <th class="hidden-xs" scope="row"></th>
             <td class="hidden-xs">
-                <img class="img-responsive movie-seller-img" data-ng-src= {{movie.data.poster_path}} alt="Image not found"/>
+                <a href="#/movie/{{movie.data.id}}">
+                    <img class="img-responsive movie-seller-img" data-ng-src= {{movie.data.poster_path}} alt="Image not found"/>
+                </a>
             </td>
             <td><h4><strong>{{movie.data.original_title}}</strong></h4></td>
         </tr>

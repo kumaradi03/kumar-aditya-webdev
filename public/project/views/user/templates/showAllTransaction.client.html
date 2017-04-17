@@ -29,7 +29,6 @@
     <table class="table table-inverse">
         <thead>
         <tr>
-            <!--<th class="hidden-xs"></strong></h4></th>-->
             <th><h4><strong>Movie Purchased</strong></h4></th>
             <th><h4><strong>Buyer</strong></h4></th>
             <th><h4><strong>Seller</strong></h4></th>
@@ -37,11 +36,10 @@
         </tr>
         </thead>
         <tbody data-ng-repeat="transaction in model.transactions track by $index">
-        <tr data-ng-if ="model.buyer[$index].firstName && model.seller[$index].firstName">
-            <!--<th scope="row" class="hidden-xs"><h4><strong>{{$index+1}}</strong></h4></th>-->
+        <tr data-ng-if ="transaction._buyer.firstName && transaction._seller.firstName">
             <th><h5><strong>{{model.movies[$index].data.original_title}}</strong></h5></th>
-            <th><h5><strong>{{model.buyer[$index].firstName+" "+model.buyer[$index].lastName}}</strong></h5></th>
-            <th><h5><strong>{{model.seller[$index].firstName+" "+model.seller[$index].lastName}}</strong></h5></th>
+            <th><h5><strong>{{transaction._buyer.firstName+" "+transaction._buyer.lastName}}</strong></h5></th>
+            <th><h5><strong>{{transaction._seller.firstName+" "+transaction._seller.lastName}}</strong></h5></th>
             <td class="hidden-xs"><h5><strong>{{transaction.dateCreated}}</strong></h5></td>
         </tr>
         </tbody>

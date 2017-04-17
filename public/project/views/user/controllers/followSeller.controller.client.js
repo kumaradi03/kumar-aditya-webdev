@@ -1,12 +1,12 @@
 /**
- * Created by aditya on 4/2/17.
+ * Created by aditya on 4/12/17.
  */
 (function(){
     angular
         .module("Movies&More")
-        .controller("InventoryController", InventoryController);
+        .controller("FollowSellerController", FollowSellerController);
 
-    function InventoryController ($location,MovieService,loggedIn,UserService) {
+    function FollowSellerController ($location,loggedIn,MovieService,UserService) {
         var vm = this;
         var userId = loggedIn._id;
         vm.openNav = openNav;
@@ -19,28 +19,29 @@
                 .findUserById(userId)
                 .then(function (user) {
                     vm.user = user;
-                    if(user.sold_movies.length === 0)
-                        vm.error = "No movies in the inventory";
+                    if(user.follows.length === 0){
+                        vm.message = "No sellers followed";
+                        vm.error = null;
+                    }
                     else{
-                        vm.sold_movies = user.sold_movies;
-                        getMoviePosters();
+                        getSellerInfo(user.follows);
                     }
                 });
+
         }
         init();
 
-        function getMoviePosters(){
-            var sellerMovies = [];
-            for(var i=0;i<vm.sold_movies.length;i++){
-                MovieService
-                    .getDetails(vm.sold_movies[i]._movieId)
-                    .then(function (movie) {
-                        movie.data.poster_path = "http://image.tmdb.org/t/p/w185/" + movie.data.poster_path;
-                        sellerMovies.push(movie);
+        function getSellerInfo(sellers) {
+            var sellerInfo = [];
+            for(var i=0;i<sellers.length;i++){
+                UserService
+                    .findUserById(sellers[i])
+                    .then(function (seller) {
+                        sellerInfo.push(seller);
                     });
             }
-            vm.sellerMovies = sellerMovies;
-            console.log(vm.sellerMovies);
+            vm.sellerInfo = sellerInfo;
+
         }
 
         function logout() {

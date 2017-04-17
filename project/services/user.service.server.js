@@ -23,6 +23,7 @@ module.exports = function (app,model){
     app.put("/api2/follow/user/:uid/seller/:sid", followSeller);
     app.put("/api2/unFollow/user/:uid/seller/:sid",unFollowSeller);
     app.post("/api2/user", createUser);
+    app.post("/api2/admin/user", createAdminUser);
     app.post("/api2/register", register);
     app.post("/api2/login", passport.authenticate('local'), login);
     app.post("/api2/logout", logout);
@@ -190,6 +191,18 @@ module.exports = function (app,model){
             .createUser(newUser)
             .then(function (user) {
                 res.send(user);
+            }, function (err) {
+                res.sendStatus(500).send(err);
+            });
+    }
+
+    function createAdminUser(req,res){
+        var newUser = req.body;
+        newUser.password = bcrypt.hashSync(newUser.password);
+        movieUserModel
+            .createUser(newUser)
+            .then(function (user) {
+                res.sendStatus(200);
             }, function (err) {
                 res.sendStatus(500).send(err);
             });

@@ -44,7 +44,7 @@
                     .getDetails(transaction[i]._movieId)
                     .then(function (movie) {
                         movie.data.poster_path = "http://image.tmdb.org/t/p/w185/" + movie.data.poster_path;
-                        buyerMovies.push(movie.data.poster_path);
+                        buyerMovies.push(movie);
                     });
             }
             vm.boughtMovies = buyerMovies;
@@ -73,15 +73,13 @@
                     .findUserById(transaction[i]._seller)
                     .then(function (user) {
                         var user ={
-                            name:user.firstName+" "+user.lastName,
-                            email:user.email,
-                            date:user.dateCreated.substring(0,10)
+                            name:user.firstName,
+                            email:user.email
                         };
                         sellerDetails.push(user);
                     });
             }
             vm.sellerDetails = sellerDetails;
-            console.log(vm.sellerDetails);
         }
 
         function openNav() {

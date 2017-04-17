@@ -21,38 +21,35 @@
     </span>
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
     <a href="#/profile">Edit Profile</a>
-    <a href="#/profile/inventory">Movies Inventory</a>
+    <a href="#/profile/movieBought">Movies Bought</a>
+    <a href="#/profile/movieLike">Movies Liked</a>
+    <a href="#/profile/movieWishlist">Movie WishList</a>
 </div>
 
-<div id="main" class="container-fluid">
-    <h1>Movies Sold</h1>
+<div id="main" class="container-fluid table-responsive">
+    <h1>Fav Seller</h1>
     <div ng-show ="model.error" class="alert alert-danger" role="alert">
         {{model.error}}
     </div>
-    <table class="table table-inverse">
-        <thead>
-        <tr>
-            <th class="hidden-xs"></th>
-            <th><h4><strong>Movie</strong></h4></th>
-            <th><h4><strong>Buyer Name</strong></h4></th>
-            <th class="hidden-xs"><h4><strong>Buyer Email</strong></h4></th>
-            <th class="hidden-xs"><h4><strong>Purchase Date</strong></h4></th>
-        </tr>
-        </thead>
-        <tbody data-ng-repeat="movie in model.soldMovies track by $index">
-        <tr ng-if= model.buyerDetails[$index].name class="panel panel-default">
-            <th class="hidden-xs" scope="row"></th>
-            <td>
-                <a href="#/movie/{{movie.data.id}}">
-                    <img class="img-responsive movie-seller-img" data-ng-src= {{movie.data.poster_path}} alt="Image not found"/>
-                </a>
-            </td>
-            <td><strong>{{model.buyerDetails[$index].name}}</strong></td>
-            <td class="hidden-xs"><strong>{{model.buyerDetails[$index].email}}</strong></td>
-            <td class="hidden-xs"><strong>{{model.transaction[$index].dateCreated}}</strong></td>
-        </tr>
-        </tbody>
-    </table>
+        <table class="table table-responsive">
+            <thead>
+            <tr>
+                <th class="hidden-xs"></th>
+                <th><h4><strong>Seller Name</strong></h4></th>
+                <th class="hidden-xs"><h4><strong>Seller Email</strong></h4></th>
+                <th><h4><strong>Seller MobNo</strong></h4></th>
+            </tr>
+            </thead>
+            <tbody data-ng-repeat="user in model.sellerInfo track by $index">
+            <tr class="panel panel-default">
+                <th scope="row" class="hidden-xs"></th>
+                <td><strong>{{user.firstName}}</strong></td>
+                <td class="hidden-xs"><strong>{{user.email}}</strong></td>
+                <td ><strong>{{user.phone}}</strong></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid">

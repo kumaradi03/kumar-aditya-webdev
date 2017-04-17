@@ -41,11 +41,14 @@ module.exports = function () {
         var deferred = q.defer();
         transactionModel
             .find()
-            .then(function (transaction,err) {
+            .populate('_buyer')
+            .populate('_seller')
+            .exec(function (err,transaction) {
                 if(err)
                     deferred.abort(err);
                 else{
                     deferred.resolve(transaction);
+                    console.log(transaction);
                 }
             });
         return deferred.promise;

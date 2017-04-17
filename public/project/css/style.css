@@ -225,3 +225,18 @@ img {
     .sidenav {padding-top: 15px;}
     .sidenav a {font-size: 18px;}
 }
+
+.table{
+    border : solid grey;
+}
+
+.table,th{
+    font-family: "Arial Hebrew";
+    font-size: medium;
+}
+
+
+.table,td{
+    font-family: "Comic Sans MS";
+    font-size: medium;
+}

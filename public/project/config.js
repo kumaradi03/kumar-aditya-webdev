@@ -141,9 +141,17 @@
                     loggedIn: checkUser
                 }
             })
+            .when("/profile/followSeller",{
+                templateUrl: 'views/user/templates/followSeller.client.html',
+                controller: 'FollowSellerController',
+                controllerAs: 'model',
+                resolve:{
+                    loggedIn: checkUser
+                }
+            })
             .otherwise({redirectTo: "/home"});
 
-        function checkLoggedIn(UserService,$location,$q,$rootScope ) {
+        function checkLoggedIn(UserService,$location,$q ) {
             var deferred = $q.defer();
             UserService
                 .loggedIn()
@@ -162,7 +170,7 @@
             return deferred.promise;
         }
 
-        function checkUser(UserService,$location,$q,$rootScope){
+        function checkUser(UserService,$location,$q){
             var deferred = $q.defer();
             UserService
                 .loggedIn()

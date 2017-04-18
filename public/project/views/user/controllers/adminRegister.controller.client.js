@@ -48,7 +48,6 @@
                         if(res){
                         vm.message = "User Created";
                         vm.error = null;
-                        // $location.url("/login")
                     }
                     else
                         vm.error = "Sorry Could not register";

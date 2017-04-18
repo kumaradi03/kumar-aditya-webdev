@@ -40,7 +40,6 @@
                     });
             }
             vm.sellerMovies = sellerMovies;
-            console.log(vm.sellerMovies);
         }
 
         function logout() {
@@ -54,7 +53,6 @@
         }
 
         function goToHome(){
-            console.log(vm.userId);
             $location.url("/home")
         }
 

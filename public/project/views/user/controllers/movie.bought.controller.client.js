@@ -25,7 +25,6 @@
                 .getBuyerTransaction(userId)
                 .then(function (transaction) {
                     vm.transaction = transaction;
-                    console.log(transaction);
                     if(transaction.length == 0){
                         vm.error = "No movies bought till now!!!."
                     }
@@ -48,7 +47,6 @@
                     });
             }
             vm.boughtMovies = buyerMovies;
-            console.log(vm.boughtMovies);
         }
 
         function logout() {
@@ -62,7 +60,6 @@
         }
 
         function goToHome(){
-            console.log(vm.userId);
             $location.url("/home")
         }
 

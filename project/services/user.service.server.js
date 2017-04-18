@@ -37,12 +37,6 @@ module.exports = function (app,model){
     var movieUserModel = model.movieUserModel;
     var movieModel = model.movieModel;
 
-    // var facebookConfig = {
-    //     clientID     : "280520602398806",
-    //     clientSecret : "245a429b9b31d3097936b1e954d82618",
-    //     callbackURL  : "http://127.0.0.1:3000/auth/facebook/callback"
-    // };
-
     var facebookConfig = {
         clientID     : process.env.FACEBOOK_CLIENT_ID,
         clientSecret : process.env.FACEBOOK_CLIENT_SECRET,

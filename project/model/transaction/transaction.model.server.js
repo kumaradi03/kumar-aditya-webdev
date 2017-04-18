@@ -16,7 +16,9 @@ module.exports = function () {
         addTransaction: addTransaction,
         getSellerTransaction:getSellerTransaction,
         getBuyerTransaction:getBuyerTransaction,
-        findAllTransactions:findAllTransactions
+        findAllTransactions:findAllTransactions,
+        deleteTransactions:deleteTransactions,
+        updateTransaction:updateTransaction
     };
     return api;
 
@@ -35,6 +37,36 @@ module.exports = function () {
                     deferred.resolve(transaction1);
             });
         return deferred.promise;
+    }
+
+    function deleteTransactions(transaction){
+        var deferred = q.defer();
+        transactionModel
+            .remove({_id:transaction_id})
+            .then(function (transaction,err) {
+                if(transaction)
+                    deferred.abort(err);
+                else{
+                    deferred.resolve(transaction);
+                }
+            });
+        return deferred.promise;
+
+    }
+
+    function updateTransaction(transaction,newTransaction){
+        var deferred = q.defer();
+        transactionModel
+            .update({_id: transaction}, {$set: newTransaction})
+            .then(function (transaction,err) {
+                if(transaction)
+                    deferred.abort(err);
+                else{
+                    deferred.resolve(transaction);
+                }
+            });
+        return deferred.promise;
+
     }
 
     function findAllTransactions() {

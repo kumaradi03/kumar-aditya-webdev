@@ -3,12 +3,9 @@
  */
 module.exports = function (app,model){
     app.get("/api2/movie/:mid", findMovieById);
-    //app.get("/api2/user", findUser);
     app.put("/api2/user/:uid/movie/:mid/seller/:sid/buy", buyMovie);
     app.post("/api2/movie", sellMovie);
-    //app.delete("/api2/user/:uid", deleteUser);
-    //app.put("/api2/user/:uid/movie/:mid/like", incrementLike);
-    //app.delete("/api2/user/:uid/movie/:mid/like", removeLike);
+    app.delete("/api2/movie/delete/:mid", deleteMovie);
 
     var movieModel = model.movieModel;
     var movieUserModel = model.movieUserModel;
@@ -18,6 +15,18 @@ module.exports = function (app,model){
         var movieId = req.params['mid'];
         movieModel
             .findMovieById(movieId)
+            .then(function (movie) {
+                res.send(movie);
+            }, function (err) {
+                res.sendStatus(500).send(err);
+            });
+    }
+
+
+    function deleteMovie(req,res) {
+        var movieId = req.params['mid'];
+        movieModel
+            .deleteMovie(movieId)
             .then(function (movie) {
                 res.send(movie);
             }, function (err) {
@@ -42,38 +51,6 @@ module.exports = function (app,model){
             });
     }
 
-    // function buyMovie(req,res){
-    //     var buyerId = req.params['uid'];
-    //     var movieId = req.params['mid'];
-    //     var sellerId = req.params['sid'];
-    //     movieModel
-    //         .buyMovie(buyerId,sellerId,movieId)
-    //         .then(function (movie) {
-    //             movieUserModel
-    //                 .buyerUpdate(buyerId,movieId)
-    //                 .then(function (user) {
-    //                     movieUserModel
-    //                         .sellerUpdate(sellerId,movieId)
-    //                         .then(function (user1) {
-    //                             transactionModel
-    //                                 .addTransaction(buyerId,sellerId,movieId)
-    //                                 .then(function (transaction) {
-    //                                     res.send(transaction);
-    //                                 },function (err) {
-    //                                     res.sendStatus(500).send(err);
-    //                                 });
-    //                         }, function (err) {
-    //                             res.sendStatus(500).send(err);
-    //                         });
-    //                 }, function (err) {
-    //                     res.sendStatus(500).send(err);
-    //                 });
-    //         }, function (err) {
-    //             res.sendStatus(500).send(err);
-    //         });
-    // }
-
-
     function buyMovie(req,res){
         var buyerId = req.params['uid'];
         var movieId = req.params['mid'];
@@ -81,7 +58,6 @@ module.exports = function (app,model){
         transactionModel
             .addTransaction(buyerId,sellerId,movieId)
             .then(function (transaction) {
-                console.log(transaction);
                 movieModel
                     .buyMovie(buyerId,sellerId,movieId,transaction)
                     .then(function (movie) {

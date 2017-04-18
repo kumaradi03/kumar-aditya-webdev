@@ -59,8 +59,6 @@
                                     }
                                 });
                         }
-                        console.log(vm.seller);
-                        console.log(vm.seller2)
                     }
                     else{
                         vm.error ="Movie is out of Stock";

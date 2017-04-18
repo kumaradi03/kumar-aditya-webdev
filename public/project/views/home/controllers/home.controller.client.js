@@ -35,7 +35,6 @@
                         data.push(movies);
                     }
                     vm.images = data;
-                    console.log(vm.images = data);
                 });
 
             HomeService
@@ -62,7 +61,6 @@
                         upcomingdata.push(upcomingMovies);
                     }
                     vm.upcomingImages = upcomingdata;
-                    console.log(vm.upcomingImages);
                 });
         }
         init();

@@ -97,10 +97,8 @@ module.exports = function (model) {
                 if(err)
                     deferred.abort(err);
                 else {
-                    console.log(user);
                     for (var i = 0; i < user.follows.length; i++) {
                         if(user.follows[i] == sellerId){
-                            console.log(user.follows[i]);
                             user.follows.splice(i,1);
                             user.save();
                             deferred.resolve(user);

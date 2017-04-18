@@ -14,7 +14,7 @@ module.exports = function (model) {
         findPageById: findPageById,
         findAllPagesForWebsite: findAllPagesForWebsite,
         updatePage: updatePage,
-        addPage: addPage,
+        addPage: addPage
         //reorderWidget:reorderWidget
     };
     return api;

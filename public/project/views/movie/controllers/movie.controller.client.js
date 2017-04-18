@@ -105,7 +105,6 @@
                     console.log(response);
                     if (response) {
                         vm.message = "Like Successfully Updated!";
-                        // $route.reload();
                         vm.like = true;
                     } else {
                         vm.error = "Unable to update like";
@@ -119,7 +118,6 @@
                 .then(function (response) {
                     if (response) {
                         vm.message = "Successfully added to WishList!";
-                        // $route.reload();
                         vm.wishlist = true;
                     } else {
                         vm.error = "Unable to add to WishList";
@@ -131,14 +129,11 @@
             MovieService
                 .removeLike(vm.userId,movieId)
                 .then(function (response) {
-                    console.log(response);
                     if (response.status === 200) {
                         console.log("manuj");
                         vm.message = "Like Successfully Updated!";
-                        // $route.reload();
                         vm.like = false;
                     } else {
-                        console.log("adi");
                         vm.error = "Unable to update like";
                     }
                 });
@@ -150,7 +145,6 @@
                 .then(function (response) {
                     if (response.status === 200) {
                         vm.message = "Removed from wishlist!";
-                        // $route.reload();
                         vm.wishlist = false;
                     } else {
                         vm.error = "Unable to remove from wishlist";
@@ -163,7 +157,6 @@
             if( quantity <= 0 )
             {
                 vm.error ="Quantity should be more than zero" ;
-                console.log(vm.error);
             }
             else{
                 var movie = {
@@ -173,7 +166,6 @@
                 MovieService
                     .sellMovie(movie)
                     .then(function (response) {
-                        console.log(response);
                         if (response) {
                             vm.message = "Like Succsessfully Updated!";
                             $location.url("/profile/inventory");

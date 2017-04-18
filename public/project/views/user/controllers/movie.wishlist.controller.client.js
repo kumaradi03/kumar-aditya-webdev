@@ -39,7 +39,6 @@
                     });
             }
             vm.wishListMovies = wishListMovies;
-            console.log(vm.wishListMovies);
         }
 
         function logout() {
@@ -53,7 +52,6 @@
         }
 
         function goToHome(){
-            console.log(vm.userId);
             $location.url("/home")
         }
 

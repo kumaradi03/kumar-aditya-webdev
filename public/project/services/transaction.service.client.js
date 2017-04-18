@@ -10,7 +10,9 @@
         var api = {
             "getBuyerTransaction": getBuyerTransaction,
             "getSellerTransaction": getSellerTransaction,
-            "findAllTransactions": findAllTransactions
+            "findAllTransactions": findAllTransactions,
+            "addTransactions": addTransactions,
+            "updateTransactions": updateTransactions
         };
         return api;
 
@@ -24,6 +26,20 @@
         function findAllTransactions() {
             return $http.get("/api2/transactions/")
                 .then(function (res) {
+                    return res.data;
+                });
+        }
+
+        function addTransactions(transaction) {
+            return $http.post("/api2/transaction/",transaction)
+                .then(function(res){
+                    return res;
+                });
+        }
+
+        function updateTransactions(transactionId, newTransaction) {
+            return $http.put("/api2/transaction/update"+transactionId, newTransaction)
+                .then(function(res){
                     return res.data;
                 });
         }

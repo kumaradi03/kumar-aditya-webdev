@@ -49,7 +49,6 @@
                     });
             }
             vm.soldMovies = sellerMovies;
-            console.log(vm.soldMovies);
         }
 
         function getBuyerDetails(transaction){
@@ -80,7 +79,6 @@
         }
 
         function goToHome(){
-            console.log(vm.userId);
             $location.url("/home")
         }
 

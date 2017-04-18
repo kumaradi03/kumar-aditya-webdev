@@ -74,7 +74,6 @@
         function login(user) {
             return $http.post("/api2/login",user)
                 .then(function(res){
-                    console.log(res);
                     return res.data;
                 });
         }
@@ -82,7 +81,6 @@
         function logout() {
             return $http.post("/api2/logout")
                 .then(function(res){
-                    console.log(res);
                     return res.data;
                 });
         }

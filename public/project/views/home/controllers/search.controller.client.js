@@ -39,7 +39,6 @@
                         }
                     }
                     vm.searchMovie = searchMovie;
-                    console.log(searchMovie);
                 });
         }
         init();

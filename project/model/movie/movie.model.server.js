@@ -14,38 +14,26 @@ module.exports = function () {
         sellMovie:sellMovie,
         buyMovie:buyMovie,
         incrementLike:incrementLike,
-        removeLike:removeLike
-        // deleteFromMovie:deleteFromMovie
+        removeLike:removeLike,
+        deleteMovie:deleteMovie
     };
     return api;
 
 
-    // function deleteFromMovie(user,userId){
-    //     var deferred = q.defer();
-    //     if(user.type === "Buyer"){
-    //         movieModel
-    //             .find()
-    //             .then(function (movies,err) {
-    //                 if(movies){
-    //                     for(var i=0;i<movies.length;i++){
-    //                             for(var j=0;j<movies[i].buyer.length;j++){
-    //                             if(movies[i].buyer[j]._buyerId === userId){
-    //                                 movies[i].buyer.splice(j,1);
-    //                             }
-    //                         }
-    //                     }
-    //                     console.log("Hi",movies);
-    //                     movieModel
-    //
-    //                     deferred.resolve(movies);
-    //                 }
-    //                 else{
-    //                     deferred.abort(err);
-    //                 }
-    //             });
-    //     }
-    //     return deferred.promise;
-    // }
+    function deleteMovie(movieId) {
+        var deferred = q.defer();
+        movieModel
+            .remove({_id:movieId})
+            .then(function (movieId,err) {
+                if(err)
+                    deferred.abort(err);
+                else{
+                    deferred.resolve(movieId);
+                }
+            });
+        return deferred.promise;
+    }
+
 
     function findMovieById(movieId) {
         var deferred = q.defer();
@@ -97,7 +85,6 @@ module.exports = function () {
                     deferred.abort(err);
                 else{
                     var index = movie.likes.indexOf(userId);
-                    console.log(index);
                     if(index > -1){
                         movie.likes.splice(index,1);
                         movie.save();

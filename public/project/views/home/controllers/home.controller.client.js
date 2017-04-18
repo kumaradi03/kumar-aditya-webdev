@@ -67,6 +67,10 @@
         }
         init();
 
+        $('.carousel').carousel({
+            interval:2000
+        })
+
         function logout() {
             UserService
                 .logout()

@@ -26,6 +26,9 @@
 
 <div id="main" class="container-fluid">
     <h1>Users</h1>
+    <div ng-show ="model.message" class="alert alert-danger" role="alert">
+        {{model.message}}
+    </div>
     <table class="table table-inverse">
         <thead>
         <tr>

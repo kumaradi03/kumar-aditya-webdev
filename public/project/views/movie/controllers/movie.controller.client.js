@@ -36,12 +36,13 @@
                     vm.user = user;
                     if(user.likes.length === 0)
                         vm.like = false;
-                    for(var i=0;i< user.likes.length;i++)
-                    {
-                        if(user.likes[i]=== movieId)
-                            vm.like = true;
-                        else
-                            vm.like = false;
+                    else{
+                        vm.like = false;
+                        for(var i=0;i< user.likes.length;i++)
+                        {
+                            if(user.likes[i]=== movieId)
+                                vm.like = true;
+                        }
                     }
                 });
 
@@ -51,12 +52,13 @@
                     vm.user = user;
                     if(user.wishlist.length === 0)
                         vm.wishlist = false;
-                    for(var j=0;j< user.wishlist.length;j++)
-                    {
-                        if(user.wishlist[j]=== movieId)
-                            vm.wishlist = true;
-                        else
-                            vm.wishlist = false;
+                    else{
+                        vm.wishlist = false;
+                        for(var j=0;j< user.wishlist.length;j++)
+                        {
+                            if(user.wishlist[j]=== movieId)
+                                vm.wishlist = true;
+                        }
                     }
                 });
 
@@ -102,7 +104,6 @@
             MovieService
                 .incrementLike(vm.userId, movieId)
                 .then(function (response) {
-                    console.log(response);
                     if (response) {
                         vm.message = "Like Successfully Updated!";
                         vm.like = true;
@@ -130,7 +131,6 @@
                 .removeLike(vm.userId,movieId)
                 .then(function (response) {
                     if (response.status === 200) {
-                        console.log("manuj");
                         vm.message = "Like Successfully Updated!";
                         vm.like = false;
                     } else {

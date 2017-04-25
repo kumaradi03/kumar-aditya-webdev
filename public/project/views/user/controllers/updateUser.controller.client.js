@@ -16,6 +16,8 @@
         vm.update = update;
         vm.goToHome = goToHome;
         vm.logout = logout;
+        vm.openNav = openNav;
+        vm.closeNav = closeNav;
 
         UserService
             .findUserById(id)
@@ -49,6 +51,17 @@
                         vm.error = "Unable to update user";
                     }
                 });
+        }
+
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+            document.getElementById("main").style.marginLeft = "250px";
+
+        }
+        /* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+            document.getElementById("main").style.marginLeft = "0";
         }
 
         function goToHome(){

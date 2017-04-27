@@ -29,13 +29,13 @@
     <div ng-show ="model.message" class="alert alert-danger" role="alert">
         {{model.message}}
     </div>
-    <table class="table table-inverse">
+    <table class="table table-inverse table-responsive">
         <thead>
         <tr>
             <th class="hidden-xs"></th>
             <th><h4><strong>Username</strong></h4></th>
             <th class="hidden-xs">Name</th>
-            <th><h4><strong>Buyer/Seller</strong></h4></th>
+            <th class="hidden-xs"><h4><strong>Buyer/Seller</strong></h4></th>
             <th class="hidden-xs"><h4><strong>Email</strong></h4></th>
             <th><h4><strong>Delete User</strong></h4></th>
             <th><h4><strong>Update User</strong></h4></th>
@@ -46,7 +46,7 @@
             <th class="hidden-xs" scope="row"><h4><strong></strong></h4></th>
             <td><h5><strong>{{user.username}}</strong></h5></th>
             <td class="hidden-xs"><h5><strong>{{user.firstName+ " "+user.lastName }}</strong></h5></th>
-            <td><h5><strong>{{user.type}}</strong></h5></th>
+            <td class="hidden-xs"><h5><strong>{{user.type}}</strong></h5></th>
             <td class="hidden-xs"><h5><strong>{{user.email}}</strong></h5></th>
             <td>
                 <button ng-click="model.deleteUser(user._id)"type="button" class="btn btn-info">Delete User</button>
